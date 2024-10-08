@@ -12,7 +12,7 @@ namespace LinkDev.Talabat.Infrastructure.Persistence.Data.Configuration.Products
         {
             base.Configure(brand);
 
-
+            brand.ToTable("Brands");
             brand.Property(p => p.Name).IsRequired();
         }
     }

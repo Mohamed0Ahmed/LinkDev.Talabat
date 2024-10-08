@@ -12,7 +12,7 @@ namespace LinkDev.Talabat.Infrastructure.Persistence.Data.Configuration.Products
         {
             base.Configure(category);
 
-
+            category.ToTable("Categories");
 
             category.Property(c => c.Name).IsRequired();
         }

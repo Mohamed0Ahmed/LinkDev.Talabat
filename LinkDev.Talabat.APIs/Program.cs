@@ -1,4 +1,7 @@
 
+using LinkDev.Talabat.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
+
 namespace LinkDev.Talabat.APIs
 {
     public class Program
@@ -18,6 +21,8 @@ namespace LinkDev.Talabat.APIs
             webApplicationBuilder.Services.AddEndpointsApiExplorer();
             webApplicationBuilder.Services.AddSwaggerGen();
 
+            webApplicationBuilder.Services.AddPersistenceServices(webApplicationBuilder.Configuration);
+          
 
             #endregion
 

@@ -1,13 +1,10 @@
-﻿using LinkDev.Talabat.Core.Domain.Contracts;
+﻿using LinkDev.Talabat.Core.Domain.Abstractions;
 using LinkDev.Talabat.Infrastructure.Persistence.Data;
+using LinkDev.Talabat.Infrastructure.Persistence.Data.DataSeeding.Services;
+using LinkDev.Talabat.Infrastructure.Persistence.Data.Migrations.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LinkDev.Talabat.Infrastructure.Persistence
 {
@@ -22,8 +19,8 @@ namespace LinkDev.Talabat.Infrastructure.Persistence
                 options.UseSqlServer(configuration.GetConnectionString("StoreContext"));
             });
 
-            services.AddScoped<IStoreContextInitializer, StoreContextInitializer>();
-
+            services.AddScoped<IDataSeeder, DataSeeder>();
+            services.AddScoped<IMigrationService, MigrationService>();
             return services;
         }
     }

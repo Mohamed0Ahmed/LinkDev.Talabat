@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LinkDev.Talabat.Core.Domain.Contracts
+namespace LinkDev.Talabat.Core.Domain.Abstractions
 {
-    public interface IStoreContextInitializer
+    public interface IDataSeeder
     {
-        Task InitializeAsync();
         Task SeedAsync();
     }
 }

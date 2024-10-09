@@ -1,9 +1,6 @@
 
 using LinkDev.Talabat.APIs.Extensions;
-using LinkDev.Talabat.Core.Domain.Contracts;
 using LinkDev.Talabat.Infrastructure.Persistence;
-using LinkDev.Talabat.Infrastructure.Persistence.Data;
-using Microsoft.EntityFrameworkCore;
 
 namespace LinkDev.Talabat.APIs
 {
@@ -35,7 +32,7 @@ namespace LinkDev.Talabat.APIs
             var app = webApplicationBuilder.Build();
 
 
-            #region = Databases Initilaztion And Data Seeding
+            #region  Databases Initilaztion And Data Seeding
 
              await app.InitializeStoreContext();
 

@@ -1,30 +1,17 @@
-﻿using LinkDev.Talabat.Core.Domain.Contracts;
+﻿using LinkDev.Talabat.Core.Domain.Abstractions;
 using LinkDev.Talabat.Core.Domain.Entities.Products;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 
-namespace LinkDev.Talabat.Infrastructure.Persistence.Data
+namespace LinkDev.Talabat.Infrastructure.Persistence.Data.DataSeeding.Services
 {
-    internal class StoreContextInitializer : IStoreContextInitializer
+    internal class DataSeeder : IDataSeeder
     {
         private readonly StoreContext _dbContext;
 
-        public StoreContextInitializer(StoreContext dbContext)
+        public DataSeeder(StoreContext dbContext)
         {
             _dbContext = dbContext;
-        }
-
-
-
-
-
-
-        public async Task InitializeAsync()
-        {
-            var pendingMigrations = await _dbContext.Database.GetPendingMigrationsAsync();
-
-            if (pendingMigrations.Any())
-                await _dbContext.Database.MigrateAsync();    // Update-Database
         }
 
 

@@ -1,4 +1,4 @@
-﻿using LinkDev.Talabat.Core.Domain.Contracts;
+﻿using LinkDev.Talabat.Core.Domain.Abstractions;
 
 namespace LinkDev.Talabat.APIs.Extensions
 {
@@ -8,15 +8,17 @@ namespace LinkDev.Talabat.APIs.Extensions
         {
             using var scope = app.Services.CreateAsyncScope();
             var services = scope.ServiceProvider;
-            var storeContextInitializer = services.GetRequiredService<IStoreContextInitializer>();
+
+            var dataSeeder = services.GetRequiredService<IDataSeeder>();
+            var databaseUpdate = services.GetRequiredService<IMigrationService>();
 
             var loggerFactory = services.GetRequiredService<ILoggerFactory>();
 
 
             try
             {
-                await storeContextInitializer.InitializeAsync();
-                await storeContextInitializer.SeedAsync();
+                await databaseUpdate.UpdateDatabaseAsync(); // Update Database
+                await dataSeeder.SeedAsync();               // Seeding Data
 
             }
             catch (Exception ex)

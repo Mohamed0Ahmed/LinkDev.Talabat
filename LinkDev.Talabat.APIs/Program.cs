@@ -1,9 +1,14 @@
 
+using LinkDev.Talabat.APIs.Extensions;
+using LinkDev.Talabat.Infrastructure.Persistence;
+
 namespace LinkDev.Talabat.APIs
 {
     public class Program
     {
-        public static void Main(string[] args)
+
+        // Entry Point
+        public static async Task Main(string[] args)
         {
             var webApplicationBuilder = WebApplication.CreateBuilder(args);
 
@@ -14,17 +19,26 @@ namespace LinkDev.Talabat.APIs
             // Add services to the container.
 
             webApplicationBuilder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             webApplicationBuilder.Services.AddEndpointsApiExplorer();
             webApplicationBuilder.Services.AddSwaggerGen();
+
+            webApplicationBuilder.Services.AddPersistenceServices(webApplicationBuilder.Configuration);
 
 
             #endregion
 
 
 
-
             var app = webApplicationBuilder.Build();
+
+
+            #region  Databases Initilaztion And Data Seeding
+
+             await app.InitializeStoreContext();
+
+            
+
+            #endregion
 
 
 

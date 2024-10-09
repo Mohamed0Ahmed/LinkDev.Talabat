@@ -21,7 +21,7 @@ namespace LinkDev.Talabat.Infrastructure.Persistence.Data.DataSeeding.Services
             {
 
 
-                var filePath = Path.Combine(AppContext.BaseDirectory, "../../../..", "LinkDev.Talabat.Infrastructure.Persistence", "Data", "DataSeeding", "brands.json");
+                var filePath = Path.Combine(AppContext.BaseDirectory, "../../../..", "LinkDev.Talabat.Infrastructure.Persistence", "Data", "DataSeeding", "ProductJsonFiles", "brands.json");
 
                 var brandsData = await File.ReadAllTextAsync(filePath);
                 var brands = JsonSerializer.Deserialize<List<ProductBrand>>(brandsData);
@@ -40,7 +40,7 @@ namespace LinkDev.Talabat.Infrastructure.Persistence.Data.DataSeeding.Services
             if (!_dbContext.Categories.Any())
             {
 
-                var filePath = Path.Combine(AppContext.BaseDirectory, "../../../..", "LinkDev.Talabat.Infrastructure.Persistence", "Data", "DataSeeding", "categories.json");
+                var filePath = Path.Combine(AppContext.BaseDirectory, "../../../..", "LinkDev.Talabat.Infrastructure.Persistence", "Data", "DataSeeding", "ProductJsonFiles", "categories.json");
 
 
                 var categoriesData = await File.ReadAllTextAsync(filePath);
@@ -61,7 +61,7 @@ namespace LinkDev.Talabat.Infrastructure.Persistence.Data.DataSeeding.Services
             {
 
 
-                var filePath = Path.Combine(AppContext.BaseDirectory, "../../../..", "LinkDev.Talabat.Infrastructure.Persistence", "Data", "DataSeeding", "products.json");
+                var filePath = Path.Combine(AppContext.BaseDirectory, "../../../..", "LinkDev.Talabat.Infrastructure.Persistence", "Data", "DataSeeding", "ProductJsonFiles", "products.json");
 
 
                 var productsData = await File.ReadAllTextAsync(filePath);

@@ -1,15 +1,14 @@
 
+using LinkDev.Talabat.APIs.Extensions;
+using LinkDev.Talabat.Core.Domain.Contracts;
 using LinkDev.Talabat.Infrastructure.Persistence;
+using LinkDev.Talabat.Infrastructure.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace LinkDev.Talabat.APIs
 {
     public class Program
     {
-
-
-
-
 
         // Entry Point
         public static async Task Main(string[] args)
@@ -23,7 +22,6 @@ namespace LinkDev.Talabat.APIs
             // Add services to the container.
 
             webApplicationBuilder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             webApplicationBuilder.Services.AddEndpointsApiExplorer();
             webApplicationBuilder.Services.AddSwaggerGen();
 
@@ -34,38 +32,14 @@ namespace LinkDev.Talabat.APIs
 
 
 
-
-
-
-            #region Update Database And Data Seeding
-
             var app = webApplicationBuilder.Build();
 
 
-            using var scope = app.Services.CreateAsyncScope();
-            var services = scope.ServiceProvider;
-            var dbContext = services.GetRequiredService<StoreContext>();
+            #region = Databases Initilaztion And Data Seeding
 
-            var loggerFactory = services.GetRequiredService<ILoggerFactory>();
-            //var logger = services.GetRequiredService<ILogger<Program>>();
+             await app.InitializeStoreContext();
 
-
-            try
-            {
-                var pendingMigrations = dbContext.Database.GetPendingMigrations();
-
-                if (pendingMigrations.Any())
-                    await dbContext.Database.MigrateAsync();    // Update-Database
-
-
-                await StoreContextSeed.SeedAsync(dbContext);    // Seeding Data 
-            }
-            catch (Exception ex)
-            {
-                var logger = loggerFactory.CreateLogger<Program>();
-                logger.LogError(ex, "An Error has been occurred during apply Migrations Or Seeding Data.");
-
-            }
+            
 
             #endregion
 

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
-namespace LinkDev.Talabat.Infrastructure.Persistence
+namespace LinkDev.Talabat.Infrastructure.Persistence.Data
 {
     public class StoreContext : DbContext
     {

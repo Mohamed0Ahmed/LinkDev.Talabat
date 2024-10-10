@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LinkDev.Talabat.Infrastructure.Persistence.Data.Configuration.Products
 {
-    public class ProductBrandsConfigurations : BaseEntityConfigurations<ProductBrand,int>
+    public class ProductBrandsConfigurations : BaseAuditableEntityConfigurations<ProductBrand,int>
     {
 
         public override void Configure(EntityTypeBuilder<ProductBrand> brand)

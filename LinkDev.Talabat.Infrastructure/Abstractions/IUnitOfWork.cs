@@ -9,8 +9,8 @@ namespace LinkDev.Talabat.Infrastructure.Abstractions
 {
     public interface IUnitOfWork : IAsyncDisposable
     {
-        IGenericRepository<TEntity, TKey> GetGenericRepository<TEntity, TKey>()
-                           where TEntity : BaseEntity<TKey>
+        IGenericRepository<TEntity, TKey> GetRepository<TEntity, TKey>()
+                           where TEntity : BaseAuditableEntity<TKey>
                            where TKey : IEquatable<TKey>;
 
 

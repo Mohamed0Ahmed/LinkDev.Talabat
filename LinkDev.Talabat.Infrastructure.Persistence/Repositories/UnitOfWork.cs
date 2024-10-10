@@ -28,8 +28,8 @@ namespace LinkDev.Talabat.Infrastructure.Persistence.Repositories
 
 
 
-        public IGenericRepository<TEntity, TKey> GetGenericRepository<TEntity, TKey>()
-                                 where TEntity : BaseEntity<TKey>
+        public IGenericRepository<TEntity, TKey> GetRepository<TEntity, TKey>()
+                                 where TEntity : BaseAuditableEntity<TKey>
                                  where TKey : IEquatable<TKey>
         {
          

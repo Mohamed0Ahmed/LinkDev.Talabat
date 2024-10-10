@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace LinkDev.Talabat.Infrastructure.Persistence.Repositories
 {
     internal class GenericRepository<TEntity, TKey> : IGenericRepository<TEntity, TKey>
-        where TEntity : BaseEntity<TKey>
+        where TEntity : BaseAuditableEntity<TKey>
         where TKey : IEquatable<TKey>
     {
 

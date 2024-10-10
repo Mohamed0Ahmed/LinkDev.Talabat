@@ -1,5 +1,5 @@
 ﻿using LinkDev.Talabat.Core.Domain.Common;
-using LinkDev.Talabat.Infrastructure.Abstractions;
+using LinkDev.Talabat.Infrastructure.Common.Abstractions;
 using LinkDev.Talabat.Infrastructure.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
 

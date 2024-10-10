@@ -5,8 +5,8 @@
 
  
         public required string CreatedBy { get; set; } 
-        public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
+        public DateTime CreatedOn { get; set; } 
         public required string LastModifiedBy { get; set; }
-        public DateTime LastModifiedOn { get; set; } = DateTime.UtcNow;
+        public DateTime LastModifiedOn { get; set; } 
     }
 }

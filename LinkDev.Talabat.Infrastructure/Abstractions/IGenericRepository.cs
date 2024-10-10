@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LinkDev.Talabat.Infrastructure.Abstractions
+namespace LinkDev.Talabat.Infrastructure.Common.Abstractions
 {
     public interface IGenericRepository<TEntity, TKey>
                       where TEntity : BaseAuditableEntity<TKey>

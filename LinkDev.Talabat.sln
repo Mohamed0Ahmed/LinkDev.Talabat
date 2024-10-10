@@ -27,7 +27,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinkDev.Talabat.Core.Applic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinkDev.Talabat.Application.Abstraction", "LinkDev.Talabat.Application.Abstraction\LinkDev.Talabat.Application.Abstraction.csproj", "{C5ACBC3C-01D7-41D8-B1FB-DC2DD7E1FEE0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinkDev.Talabat.Infrastructure", "LinkDev.Talabat.Infrastructure\LinkDev.Talabat.Infrastructure.csproj", "{E3A31E91-C519-43DD-A3FF-F13E502BE84E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinkDev.Talabat.Infrastructure.Common", "LinkDev.Talabat.Infrastructure\LinkDev.Talabat.Infrastructure.Common.csproj", "{E3A31E91-C519-43DD-A3FF-F13E502BE84E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinkDev.Talabat.Infrastructure.Persistence", "LinkDev.Talabat.Infrastructure.Persistence\LinkDev.Talabat.Infrastructure.Persistence.csproj", "{FB5E0FA7-D43C-4241-AE45-145D18A4073E}"
 EndProject

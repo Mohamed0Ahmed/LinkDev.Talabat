@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LinkDev.Talabat.Core.Domain.Abstractions
+namespace LinkDev.Talabat.Core.Application
 {
-    public interface IDataSeeder
+    internal class AssemblyInformation
     {
-        Task SeedAsync();
     }
 }

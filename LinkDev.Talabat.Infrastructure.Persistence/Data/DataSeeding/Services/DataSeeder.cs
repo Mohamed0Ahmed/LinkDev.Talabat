@@ -1,4 +1,4 @@
-﻿using LinkDev.Talabat.Core.Domain.Abstractions;
+﻿using LinkDev.Talabat.Core.Application.Abstraction;
 using LinkDev.Talabat.Core.Domain.Entities.Products;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;

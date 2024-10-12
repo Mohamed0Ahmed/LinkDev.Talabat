@@ -1,4 +1,4 @@
-﻿using LinkDev.Talabat.Core.Domain.Abstractions;
+﻿using LinkDev.Talabat.Core.Application.Abstraction;
 
 namespace LinkDev.Talabat.APIs.Extensions
 {

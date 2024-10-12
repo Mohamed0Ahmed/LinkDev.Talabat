@@ -20,7 +20,7 @@ namespace LinkDev.Talabat.Infrastructure.Persistence
 
             services.AddDbContext<StoreContext>((options) =>
             {
-                options.UseSqlServer(configuration.GetConnectionString("StoreContext"));
+                options.UseLazyLoadingProxies().UseSqlServer(configuration.GetConnectionString("StoreContext"));
             });
 
             services.AddScoped<IDataSeeder, DataSeeder>();

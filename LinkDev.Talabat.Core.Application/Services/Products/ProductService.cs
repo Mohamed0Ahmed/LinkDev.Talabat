@@ -4,13 +4,13 @@ using LinkDev.Talabat.Core.Application.Abstraction.Interfaces;
 using LinkDev.Talabat.Core.Domain.Entities.Products;
 using LinkDev.Talabat.Infrastructure.Common.Abstractions;
 
-namespace LinkDev.Talabat.Core.Application.Services
+namespace LinkDev.Talabat.Core.Application.Services.Products
 {
-    internal class ProductService(IUnitOfWork unitOfWork , IMapper mapper) : IProductService
+    internal class ProductService(IUnitOfWork unitOfWork, IMapper mapper) : IProductService
     {
         public async Task<IEnumerable<ProductDisplayDto>> GetProductsAsync()
         {
-           var products = await unitOfWork.GetRepository<Product ,int>().GetAllAsync();
+            var products = await unitOfWork.GetRepository<Product, int>().GetAllAsync();
 
             var productDisplayDto = mapper.Map<IEnumerable<ProductDisplayDto>>(products);
 
@@ -20,11 +20,11 @@ namespace LinkDev.Talabat.Core.Application.Services
 
         public async Task<ProductDisplayDto> GetProductAsync(int id)
         {
-            
-            var product = await unitOfWork.GetRepository<Product , int>().GetAsync(id);
+
+            var product = await unitOfWork.GetRepository<Product, int>().GetAsync(id);
             var productDisplayDto = mapper.Map<ProductDisplayDto>(product);
 
-            return productDisplayDto; 
+            return productDisplayDto;
         }
 
         public async Task<IEnumerable<BrandDto>> GetBrandsAsync()
@@ -46,7 +46,7 @@ namespace LinkDev.Talabat.Core.Application.Services
             return categoriesDto;
         }
 
-     
-     
+
+
     }
 }

@@ -1,6 +1,8 @@
 ﻿using LinkDev.Talabat.Core.Application.Abstraction.Interfaces;
+using LinkDev.Talabat.Core.Application.Abstraction.Services;
 using LinkDev.Talabat.Core.Application.Mapping;
 using LinkDev.Talabat.Core.Application.Services;
+using LinkDev.Talabat.Core.Application.Services.Products;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LinkDev.Talabat.Core.Application
@@ -9,8 +11,13 @@ namespace LinkDev.Talabat.Core.Application
     {
         public static IServiceCollection AddApplicationServices (this IServiceCollection services)
         {
-            services.AddAutoMapper(Mapper => Mapper.AddProfile<MappingProfile>());
-            services.AddScoped<IProductService, ProductService>();
+            //services.AddAutoMapper(Mapper => Mapper.AddProfile<MappingProfile>());
+            services.AddAutoMapper(typeof(MappingProfile));
+
+
+            //services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IServiceManager, ServiceManager>();
+
 
             return services;
         }

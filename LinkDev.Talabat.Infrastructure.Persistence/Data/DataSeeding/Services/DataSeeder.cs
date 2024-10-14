@@ -1,6 +1,5 @@
-﻿using LinkDev.Talabat.Core.Domain.Abstractions;
+﻿using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
 using LinkDev.Talabat.Core.Domain.Entities.Products;
-using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 
 namespace LinkDev.Talabat.Infrastructure.Persistence.Data.DataSeeding.Services

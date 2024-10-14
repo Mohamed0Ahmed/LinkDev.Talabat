@@ -1,6 +1,7 @@
 ﻿using LinkDev.Talabat.Core.Domain.Common;
-using LinkDev.Talabat.Infrastructure.Abstractions;
+using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
 using LinkDev.Talabat.Infrastructure.Persistence.Data;
+using LinkDev.Talabat.Infrastructure.Persistence.Repositories.GenericRepository;
 using System.Collections.Concurrent;
 
 namespace LinkDev.Talabat.Infrastructure.Persistence.Repositories
@@ -28,8 +29,8 @@ namespace LinkDev.Talabat.Infrastructure.Persistence.Repositories
 
 
 
-        public IGenericRepository<TEntity, TKey> GetGenericRepository<TEntity, TKey>()
-                                 where TEntity : BaseEntity<TKey>
+        public IGenericRepository<TEntity, TKey> GetRepository<TEntity, TKey>()
+                                 where TEntity : BaseAuditableEntity<TKey>
                                  where TKey : IEquatable<TKey>
         {
          

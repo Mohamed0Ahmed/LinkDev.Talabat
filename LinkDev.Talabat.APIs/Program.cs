@@ -1,5 +1,7 @@
-
 using LinkDev.Talabat.APIs.Extensions;
+using LinkDev.Talabat.APIs.Services;
+using LinkDev.Talabat.Application.Abstraction.Interfaces;
+using LinkDev.Talabat.Core.Application;
 using LinkDev.Talabat.Infrastructure.Persistence;
 
 namespace LinkDev.Talabat.APIs
@@ -22,7 +24,11 @@ namespace LinkDev.Talabat.APIs
             webApplicationBuilder.Services.AddEndpointsApiExplorer();
             webApplicationBuilder.Services.AddSwaggerGen();
 
+            webApplicationBuilder.Services.AddHttpContextAccessor();
+            webApplicationBuilder.Services.AddScoped<ILoggedInUserService , LoggedInUserService>();
+
             webApplicationBuilder.Services.AddPersistenceServices(webApplicationBuilder.Configuration);
+            webApplicationBuilder.Services.AddApplicationServices();
 
 
             #endregion
@@ -35,8 +41,8 @@ namespace LinkDev.Talabat.APIs
             #region  Databases Initilaztion And Data Seeding
 
              await app.InitializeStoreContext();
+         
 
-            
 
             #endregion
 
@@ -54,7 +60,7 @@ namespace LinkDev.Talabat.APIs
             }
 
             app.UseHttpsRedirection();
-
+            app.UseStaticFiles();
             app.UseAuthorization();
 
 

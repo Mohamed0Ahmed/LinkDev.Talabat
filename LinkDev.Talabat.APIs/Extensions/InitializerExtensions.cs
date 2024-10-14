@@ -1,5 +1,4 @@
-﻿using LinkDev.Talabat.Core.Domain.Abstractions;
-
+﻿using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
 namespace LinkDev.Talabat.APIs.Extensions
 {
     public static class InitializerExtensions

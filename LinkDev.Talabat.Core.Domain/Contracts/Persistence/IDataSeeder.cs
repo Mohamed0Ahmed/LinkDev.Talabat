@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LinkDev.Talabat.Core.Domain.Abstractions
+namespace LinkDev.Talabat.Core.Domain.Contracts.Persistence
 {
-    public interface IMigrationService
+    public interface IDataSeeder
     {
-        Task UpdateDatabaseAsync();
+        Task SeedAsync();
     }
 }

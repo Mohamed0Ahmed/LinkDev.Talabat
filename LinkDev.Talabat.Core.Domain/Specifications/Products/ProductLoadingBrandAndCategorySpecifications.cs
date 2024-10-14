@@ -11,9 +11,25 @@ namespace LinkDev.Talabat.Core.Domain.Specifications.Products
     {
         public ProductLoadingBrandAndCategorySpecifications() : base()
         {
+            AddIncludes();
+        }
+
+   
+
+        public ProductLoadingBrandAndCategorySpecifications(int id) :base(id) 
+        {
+            AddIncludes();
+        }
+
+        #region Helper
+
+        private void AddIncludes()
+        {
             Includes.Add(P => P.Brand!);
             Includes.Add(P => P.Category!);
         }
+
+        #endregion
 
     }
 }

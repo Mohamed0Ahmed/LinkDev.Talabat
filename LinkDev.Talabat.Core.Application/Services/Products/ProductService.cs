@@ -3,7 +3,6 @@ using LinkDev.Talabat.Core.Application.Abstraction.DTOs.Products;
 using LinkDev.Talabat.Core.Application.Abstraction.Interfaces;
 using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
 using LinkDev.Talabat.Core.Domain.Entities.Products;
-using LinkDev.Talabat.Core.Domain.Specifications;
 using LinkDev.Talabat.Core.Domain.Specifications.Products;
 
 namespace LinkDev.Talabat.Core.Application.Services.Products
@@ -26,7 +25,9 @@ namespace LinkDev.Talabat.Core.Application.Services.Products
         public async Task<ProductDisplayDto> GetProductAsync(int id)
         {
 
-            var product = await unitOfWork.GetRepository<Product, int>().GetAsync(id);
+            var spec = new ProductLoadingBrandAndCategorySpecifications(id );
+
+            var product = await unitOfWork.GetRepository<Product, int>().GetWithSpecAsync(spec);
             var productDisplayDto = mapper.Map<ProductDisplayDto>(product);
 
             return productDisplayDto;

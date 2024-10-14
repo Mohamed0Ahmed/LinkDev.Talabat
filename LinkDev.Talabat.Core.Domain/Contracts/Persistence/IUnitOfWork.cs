@@ -1,6 +1,6 @@
 ﻿using LinkDev.Talabat.Core.Domain.Common;
 
-namespace LinkDev.Talabat.Infrastructure.Common.Abstractions
+namespace LinkDev.Talabat.Core.Domain.Contracts.Persistence
 {
     public interface IUnitOfWork : IAsyncDisposable
     {

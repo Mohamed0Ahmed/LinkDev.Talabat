@@ -1,4 +1,4 @@
-﻿using LinkDev.Talabat.Core.Application.Abstraction;
+﻿using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 namespace LinkDev.Talabat.Infrastructure.Persistence.Data.Migrations.Services

@@ -2,8 +2,7 @@
 using LinkDev.Talabat.Core.Application.Abstraction.Interfaces;
 using LinkDev.Talabat.Core.Application.Abstraction.Services;
 using LinkDev.Talabat.Core.Application.Services.Products;
-using LinkDev.Talabat.Infrastructure.Common.Abstractions;
-
+using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
 namespace LinkDev.Talabat.Core.Application.Services
 {
     internal class ServiceManager : IServiceManager

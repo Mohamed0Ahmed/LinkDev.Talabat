@@ -1,5 +1,5 @@
 ﻿using LinkDev.Talabat.Core.Application.Abstraction;
-using LinkDev.Talabat.Infrastructure.Common.Abstractions;
+using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
 using LinkDev.Talabat.Infrastructure.Persistence.Data;
 using LinkDev.Talabat.Infrastructure.Persistence.Data.DataSeeding.Services;
 using LinkDev.Talabat.Infrastructure.Persistence.Data.Interceptors;

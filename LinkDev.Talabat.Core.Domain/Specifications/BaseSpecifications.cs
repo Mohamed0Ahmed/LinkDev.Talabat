@@ -9,13 +9,18 @@ namespace LinkDev.Talabat.Core.Domain.Specifications
         where TKey : IEquatable<TKey>
     {
 
+        public Expression<Func<TEntity, bool>>? Criteria { get; set; }
+        public List<Expression<Func<TEntity, object>>> Includes { get; set; } = new();  // Initialize with empty list 
+        public Expression<Func<TEntity, object>>? OrderBy { get; set; }
+        public Expression<Func<TEntity, object>>? OrderByDesc { get; set; }
+
 
 
         #region CTOR
 
-        public BaseSpecifications()
+        public BaseSpecifications(Expression<Func<TEntity, bool>> criteriaExpression)
         {
-
+            Criteria = criteriaExpression;
         }
 
         public BaseSpecifications(TKey id)
@@ -26,11 +31,6 @@ namespace LinkDev.Talabat.Core.Domain.Specifications
 
         #endregion
 
-
-        public Expression<Func<TEntity, bool>>? Criteria { get; set; }
-        public List<Expression<Func<TEntity, object>>> Includes { get; set; } = new();  // Initialize with empty list 
-        public Expression<Func<TEntity, object>>? OrderBy { get; set; }
-        public Expression<Func<TEntity, object>>? OrderByDesc { get; set; }
 
 
 

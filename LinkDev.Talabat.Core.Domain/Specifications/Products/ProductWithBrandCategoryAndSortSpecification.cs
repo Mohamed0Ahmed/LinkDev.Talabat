@@ -1,17 +1,14 @@
 ﻿using LinkDev.Talabat.Core.Domain.Entities.Products;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LinkDev.Talabat.Core.Domain.Specifications.Products
 {
-    public class ProductWithBrandCategoryAndSortSpecification : BaseSpecifications<Product , int>
+    public class ProductWithBrandCategoryAndSortSpecification : BaseSpecifications<Product, int>
     {
-        public ProductWithBrandCategoryAndSortSpecification(string? sort) : base()
+        public ProductWithBrandCategoryAndSortSpecification(string? sort, int? brandId, int? categoryId)
+            : base(p => (!brandId.HasValue || p.BrandId == brandId.Value) &&
+                       (!categoryId.HasValue || p.CategoryId == categoryId.Value))
         {
-            
+
             AddIncludes();
             AddOrderBy(p => p.Name);
 
@@ -21,7 +18,7 @@ namespace LinkDev.Talabat.Core.Domain.Specifications.Products
                 {
                     case "nameDesc":
                         AddOrderByDesc(p => p.Name);
-                            break;
+                        break;
 
                     case "price":
                         AddOrderBy(p => p.Price);
@@ -35,12 +32,13 @@ namespace LinkDev.Talabat.Core.Domain.Specifications.Products
                         AddOrderBy(p => p.Name);
                         break;
                 }
-            }    
+            }
         }
 
-   
 
-        public ProductWithBrandCategoryAndSortSpecification(int id) :base(id) 
+
+        public ProductWithBrandCategoryAndSortSpecification(int id)
+            : base(id)
         {
             AddIncludes();
         }

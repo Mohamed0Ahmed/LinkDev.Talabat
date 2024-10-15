@@ -9,15 +9,15 @@ namespace LinkDev.Talabat.APIs.Controllers.Controllers.Products
     {
 
 
-        [HttpGet] // GET : /api/products
-        public async Task<ActionResult<IEnumerable<ProductDisplayDto>>> GetProducts()
+        [HttpGet]                    // GET : /api/products
+        public async Task<ActionResult<IEnumerable<ProductDisplayDto>>> GetProducts(string? sort)
         {
-            var products = await serviceManager.ProductService.GetProductsAsync();
+            var products = await serviceManager.ProductService.GetProductsAsync(sort);
             return Ok(products);
         }
 
 
-        [HttpGet("{id:int}")] 
+        [HttpGet("{id:int}")]        // GET : /api/products/1
         public async Task<ActionResult<ProductDisplayDto>> GetProduct (int id )
         {
             var product = await serviceManager.ProductService.GetProductAsync(id);
@@ -28,14 +28,14 @@ namespace LinkDev.Talabat.APIs.Controllers.Controllers.Products
         }
 
 
-        [HttpGet("brands")] // GET : /api/products/brands
+        [HttpGet("brands")]          // GET : /api/products/brands
         public async Task<ActionResult<IEnumerable<BrandDto>>> GetBrands()
         {
             var brands = await serviceManager.ProductService.GetBrandsAsync();
             return Ok(brands);
         }
 
-        [HttpGet("categories")] // GET : /api/products/categories
+        [HttpGet("categories")]      // GET : /api/products/categories
         public async Task<ActionResult<IEnumerable<CategoryDto>>> GetCategories()
         {
             var categories = await serviceManager.ProductService.GetCategoriesAsync();

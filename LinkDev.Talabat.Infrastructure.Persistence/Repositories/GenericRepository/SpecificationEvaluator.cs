@@ -21,6 +21,18 @@ namespace LinkDev.Talabat.Infrastructure.Persistence.Repositories.GenericReposit
                 query = query.Where(spec.Criteria);      // _dbContext.Set<TEntity>().where(P => P.Id.Equals(1))
 
 
+
+
+            if (spec.OrderByDesc is not null)
+                query = query.OrderByDescending(spec.OrderByDesc);
+
+            else if (spec.OrderBy is not null)
+                query = query.OrderBy(spec.OrderBy);
+
+
+
+
+
             query = spec.Includes.Aggregate(query, (currentQuery, includeExpression) => currentQuery.Include(includeExpression));
 
 

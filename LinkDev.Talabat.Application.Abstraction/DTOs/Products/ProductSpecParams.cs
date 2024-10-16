@@ -8,15 +8,21 @@ namespace LinkDev.Talabat.Core.Application.Abstraction.DTOs.Products
 {
     public class ProductSpecParams
     {
+        private string? search {  get; set; }
         public int? BrandId { get; set; }
         public int? CategoryId { get; set; }
         public string? Sort { get; set; }
 
-
         public int PageIndex { get; set; } = 1;
-
         private const int MaxPageSize = 10;
         private int pageSize = 5;
+
+
+        public string? Search
+        {
+            get { return search; }
+            set { search = value?.ToUpper(); }
+        }
         public int PageSize
         {
             get { return pageSize; }

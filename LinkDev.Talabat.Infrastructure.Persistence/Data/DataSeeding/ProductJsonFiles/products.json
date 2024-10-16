@@ -8,7 +8,8 @@
     "CategoryId": 1,
     "BrandId": 1,
     "CreatedBy": "1",
-    "LastModifiedBy": "1"
+    "LastModifiedBy": "1",
+    "NormalizedName": "DOUBLE CARAMEL FRAPPUCCINO"
   },
   {
     "Id": 0,
@@ -19,7 +20,8 @@
     "CategoryId": 1,
     "BrandId": 1,
     "CreatedBy": "1",
-    "LastModifiedBy": "1"
+    "LastModifiedBy": "1",
+    "NormalizedName": "WHITE CHOCOLATE MOCHA FRAPPUCCINO"
   },
   {
     "Id": 0,
@@ -30,7 +32,8 @@
     "CategoryId": 2,
     "BrandId": 1,
     "CreatedBy": "1",
-    "LastModifiedBy": "1"
+    "LastModifiedBy": "1",
+    "NormalizedName": "ICED CAFÉ LATTE"
   },
   {
     "Id": 0,
@@ -41,7 +44,8 @@
     "CategoryId": 3,
     "BrandId": 2,
     "CreatedBy": "1",
-    "LastModifiedBy": "1"
+    "LastModifiedBy": "1",
+    "NormalizedName": "WHITE CHOCOLATE MOCHA"
   },
   {
     "Id": 0,
@@ -52,7 +56,8 @@
     "CategoryId": 4,
     "BrandId": 1,
     "CreatedBy": "1",
-    "LastModifiedBy": "1"
+    "LastModifiedBy": "1",
+    "NormalizedName": "ICED CARAMEL MACCHIATO"
   },
   {
     "Id": 0,
@@ -63,7 +68,8 @@
     "CategoryId": 4,
     "BrandId": 5,
     "CreatedBy": "1",
-    "LastModifiedBy": "1"
+    "LastModifiedBy": "1",
+    "NormalizedName": "HOT CARAMEL MACCHIATO"
   },
   {
     "Id": 0,
@@ -74,7 +80,8 @@
     "CategoryId": 5,
     "BrandId": 2,
     "CreatedBy": "1",
-    "LastModifiedBy": "1"
+    "LastModifiedBy": "1",
+    "NormalizedName": "ICED MATCHA LATTE"
   },
   {
     "Id": 0,
@@ -85,7 +92,8 @@
     "CategoryId": 6,
     "BrandId": 1,
     "CreatedBy": "1",
-    "LastModifiedBy": "1"
+    "LastModifiedBy": "1",
+    "NormalizedName": "HONEY CAKE"
   },
   {
     "Id": 0,
@@ -96,7 +104,8 @@
     "CategoryId": 6,
     "BrandId": 1,
     "CreatedBy": "1",
-    "LastModifiedBy": "1"
+    "LastModifiedBy": "1",
+    "NormalizedName": "BLUEBERRY CHEESECAKE"
   },
   {
     "Id": 0,
@@ -107,7 +116,8 @@
     "CategoryId": 7,
     "BrandId": 3,
     "CreatedBy": "1",
-    "LastModifiedBy": "1"
+    "LastModifiedBy": "1",
+    "NormalizedName": "GLAZED DONUTS"
   },
   {
     "Id": 0,
@@ -118,7 +128,8 @@
     "CategoryId": 7,
     "BrandId": 1,
     "CreatedBy": "1",
-    "LastModifiedBy": "1"
+    "LastModifiedBy": "1",
+    "NormalizedName": "GREEK SALAD"
   },
   {
     "Id": 0,
@@ -129,7 +140,8 @@
     "CategoryId": 4,
     "BrandId": 4,
     "CreatedBy": "1",
-    "LastModifiedBy": "1"
+    "LastModifiedBy": "1",
+    "NormalizedName": "ICED BLACK TEA LEMONADE"
   },
   {
     "Id": 0,
@@ -140,7 +152,8 @@
     "CategoryId": 4,
     "BrandId": 4,
     "CreatedBy": "1",
-    "LastModifiedBy": "1"
+    "LastModifiedBy": "1",
+    "NormalizedName": "ICED LONDON FOG TEA LATTE"
   },
   {
     "Id": 0,
@@ -151,7 +164,8 @@
     "CategoryId": 3,
     "BrandId": 6,
     "CreatedBy": "1",
-    "LastModifiedBy": "1"
+    "LastModifiedBy": "1",
+    "NormalizedName": "TURKEY BACON, CHEDDAR & EGG WHITE SANDWICH"
   },
   {
     "Id": 0,
@@ -162,7 +176,8 @@
     "CategoryId": 3,
     "BrandId": 2,
     "CreatedBy": "1",
-    "LastModifiedBy": "1"
+    "LastModifiedBy": "1",
+    "NormalizedName": "ICED MATCHA"
   },
   {
     "Id": 0,
@@ -173,7 +188,8 @@
     "CategoryId": 3,
     "BrandId": 2,
     "CreatedBy": "1",
-    "LastModifiedBy": "1"
+    "LastModifiedBy": "1",
+    "NormalizedName": "DOUBLE-SMOKED BACON, CHEDDAR & EGG SANDWICH"
   },
   {
     "Id": 0,
@@ -184,7 +200,8 @@
     "CategoryId": 3,
     "BrandId": 1,
     "CreatedBy": "1",
-    "LastModifiedBy": "1"
+    "LastModifiedBy": "1",
+    "NormalizedName": "ICED CHAI TEA LATTE WITH OLEATO GOLDEN FOAM"
   },
   {
     "Id": 0,
@@ -195,6 +212,7 @@
     "CategoryId": 3,
     "BrandId": 1,
     "CreatedBy": "1",
-    "LastModifiedBy": "1"
+    "LastModifiedBy": "1",
+    "NormalizedName": "DRAGON DRINK STARBUCKS REFRESHERS BEVERAGE WITH OLEATO GOLDEN FOAM"
   }
 ]

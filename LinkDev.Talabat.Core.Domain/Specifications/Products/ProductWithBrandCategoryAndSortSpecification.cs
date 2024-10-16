@@ -4,9 +4,10 @@ namespace LinkDev.Talabat.Core.Domain.Specifications.Products
 {
     public class ProductWithBrandCategoryAndSortSpecification : BaseSpecifications<Product, int>
     {
-        public ProductWithBrandCategoryAndSortSpecification(string? sort, int? brandId, int? categoryId, int pageIndex, int pageSize)
-            : base(p => (!brandId.HasValue || p.BrandId == brandId.Value) &&
-                       (!categoryId.HasValue || p.CategoryId == categoryId.Value))
+        public ProductWithBrandCategoryAndSortSpecification(string? sort, int? brandId, int? categoryId, int pageIndex, int pageSize, string? Search)
+            : base(p => (string.IsNullOrEmpty(Search) ||p.NormalizedName.Contains(Search) ) &&
+                        (!brandId.HasValue || p.BrandId == brandId.Value) &&
+                        (!categoryId.HasValue || p.CategoryId == categoryId.Value))
         {
 
             AddIncludes();

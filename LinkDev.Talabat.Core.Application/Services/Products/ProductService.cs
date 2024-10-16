@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using LinkDev.Talabat.Core.Application.Abstraction.Common;
 using LinkDev.Talabat.Core.Application.Abstraction.DTOs.Products;
 using LinkDev.Talabat.Core.Application.Abstraction.Interfaces;
 using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
@@ -9,7 +10,7 @@ namespace LinkDev.Talabat.Core.Application.Services.Products
 {
     internal class ProductService(IUnitOfWork unitOfWork, IMapper mapper) : IProductService
     {
-        public async Task<IEnumerable<ProductDisplayDto>> GetProductsAsync(ProductSpecParams specParams)
+        public async Task<Pagination<ProductDisplayDto>> GetProductsAsync(ProductSpecParams specParams)
         {
 
             var spec = new ProductWithBrandCategoryAndSortSpecification(specParams.Sort, specParams.BrandId, specParams.CategoryId, specParams.PageIndex, specParams.PageSize);
@@ -18,7 +19,10 @@ namespace LinkDev.Talabat.Core.Application.Services.Products
 
             var productDisplayDto = mapper.Map<IEnumerable<ProductDisplayDto>>(products);
 
-            return productDisplayDto;
+            var countSpec = new ProductWithFiltrationForCountSpecifications(specParams.BrandId, specParams.CategoryId);
+            var count = await unitOfWork.GetRepository<Product, int>().GetCountAsync(countSpec);
+
+            return new Pagination<ProductDisplayDto>(specParams.PageSize, specParams.PageIndex , count) { Data = productDisplayDto };
 
         }
 

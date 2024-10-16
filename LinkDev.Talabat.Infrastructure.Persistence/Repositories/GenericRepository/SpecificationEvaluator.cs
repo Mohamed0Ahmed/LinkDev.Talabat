@@ -17,7 +17,7 @@ namespace LinkDev.Talabat.Infrastructure.Persistence.Repositories.GenericReposit
         {
             var query = inputQuery;                      // _dbContext.Set<TEntity>()
 
-            if(spec.Criteria is not null)                // P => P.Id.Equals(1)
+            if (spec.Criteria is not null)                // P => P.Id.Equals(1)
                 query = query.Where(spec.Criteria);      // _dbContext.Set<TEntity>().where(P => P.Id.Equals(1))
 
 
@@ -30,10 +30,10 @@ namespace LinkDev.Talabat.Infrastructure.Persistence.Repositories.GenericReposit
                 query = query.OrderBy(spec.OrderBy);
 
 
+            if (spec.IsPaginationEnable)
+                query = query.Skip(spec.Skip).Take(spec.Take);
 
-
-
-            query = spec.Includes.Aggregate(query, (currentQuery, includeExpression) => currentQuery.Include(includeExpression));
+                query = spec.Includes.Aggregate(query, (currentQuery, includeExpression) => currentQuery.Include(includeExpression));
 
 
             return query;

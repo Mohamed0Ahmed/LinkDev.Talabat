@@ -10,7 +10,7 @@ namespace LinkDev.Talabat.Core.Application.Abstraction.Interfaces
     public interface IProductService
     {
 
-        Task<IEnumerable<ProductDisplayDto>> GetProductsAsync(string? sort, int? brandId, int? categoryId);
+        Task<IEnumerable<ProductDisplayDto>> GetProductsAsync(ProductSpecParams specParams);
         Task<ProductDisplayDto> GetProductAsync(int id);
         Task<IEnumerable<BrandDto>> GetBrandsAsync();
         Task<IEnumerable<CategoryDto>> GetCategoriesAsync();

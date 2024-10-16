@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using LinkDev.Talabat.Core.Application.Abstraction.Common;
 using LinkDev.Talabat.Core.Application.Abstraction.DTOs.Products;
 using LinkDev.Talabat.Core.Application.Abstraction.Interfaces;
 using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
@@ -9,23 +10,26 @@ namespace LinkDev.Talabat.Core.Application.Services.Products
 {
     internal class ProductService(IUnitOfWork unitOfWork, IMapper mapper) : IProductService
     {
-        public async Task<IEnumerable<ProductDisplayDto>> GetProductsAsync()
+        public async Task<Pagination<ProductDisplayDto>> GetProductsAsync(ProductSpecParams specParams)
         {
-           
-            var spec = new ProductLoadingBrandAndCategorySpecifications();
+
+            var spec = new ProductWithBrandCategoryAndSortSpecification(specParams.Sort, specParams.BrandId, specParams.CategoryId, specParams.PageIndex, specParams.PageSize , specParams.Search);
 
             var products = await unitOfWork.GetRepository<Product, int>().GetAllWithSpecAsync(spec);
 
             var productDisplayDto = mapper.Map<IEnumerable<ProductDisplayDto>>(products);
 
-            return productDisplayDto;
+            var countSpec = new ProductWithFiltrationForCountSpecifications(specParams.BrandId, specParams.CategoryId, specParams.Search);
+            var count = await unitOfWork.GetRepository<Product, int>().GetCountAsync(countSpec);
+
+            return new Pagination<ProductDisplayDto>(specParams.PageSize, specParams.PageIndex , count) { Data = productDisplayDto };
 
         }
 
         public async Task<ProductDisplayDto> GetProductAsync(int id)
         {
 
-            var spec = new ProductLoadingBrandAndCategorySpecifications(id );
+            var spec = new ProductWithBrandCategoryAndSortSpecification(id);
 
             var product = await unitOfWork.GetRepository<Product, int>().GetWithSpecAsync(spec);
             var productDisplayDto = mapper.Map<ProductDisplayDto>(product);

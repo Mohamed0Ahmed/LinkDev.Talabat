@@ -1,4 +1,5 @@
 ﻿using LinkDev.Talabat.APIs.Controllers.Controllers.Base;
+using LinkDev.Talabat.APIs.Controllers.Errors;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -14,7 +15,7 @@ namespace LinkDev.Talabat.APIs.Controllers.Controllers.Buggy
         [HttpGet("notfound")]                    // /api/buggy/notfound
         public IActionResult GetNotFound()
         {
-            return NotFound(new { StatusCode = 404, Message = "Not Found" });
+            return NotFound(new ApiResponse(404));
         }
 
          
@@ -28,7 +29,7 @@ namespace LinkDev.Talabat.APIs.Controllers.Controllers.Buggy
         [HttpGet("badrequest")]                  // /api/buggy/badrequest
         public IActionResult GetBadRequest()
         {
-            return BadRequest(new { StatusCode = 400, Message = "Bad Request" });
+            return BadRequest(new ApiResponse(400));
         }
 
 
@@ -42,7 +43,7 @@ namespace LinkDev.Talabat.APIs.Controllers.Controllers.Buggy
         [HttpGet("unauthorize")]                 // /api/buggy/unauthorize
         public IActionResult GetUnAuthorizeError()
         {
-            return Unauthorized(new { StatusCode = 401, Message = "unAuthorize" });
+            return Unauthorized(new ApiResponse(401));
         }
 
 

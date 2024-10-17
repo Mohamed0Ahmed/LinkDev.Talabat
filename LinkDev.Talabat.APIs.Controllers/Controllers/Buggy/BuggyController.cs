@@ -11,14 +11,14 @@ using System.Threading.Tasks;
 namespace LinkDev.Talabat.APIs.Controllers.Controllers.Buggy
 {
     public class BuggyController : BaseApiController
-    { 
+    {
         [HttpGet("notfound")]                    // /api/buggy/notfound
         public IActionResult GetNotFound()
         {
             return NotFound(new ApiResponse(404));
         }
 
-         
+
         [HttpGet("servererror")]                 // /api/buggy/servererror
         public IActionResult GetServerError()
         {
@@ -36,6 +36,7 @@ namespace LinkDev.Talabat.APIs.Controllers.Controllers.Buggy
         [HttpGet("badrequest/{id}")]             // /api/buggy/badrequest/5
         public IActionResult GetValidationError(int id)
         {
+
             return Ok();
         }
 

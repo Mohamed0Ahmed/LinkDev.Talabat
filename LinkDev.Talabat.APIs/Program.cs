@@ -6,6 +6,7 @@ using LinkDev.Talabat.Application.Abstraction.Interfaces;
 using LinkDev.Talabat.Core.Application;
 using LinkDev.Talabat.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Mvc;
+using LinkDev.Talabat.Infrastructure;
 
 namespace LinkDev.Talabat.APIs
 {
@@ -37,7 +38,7 @@ namespace LinkDev.Talabat.APIs
                                                               Errors = p.Value!.Errors.Select(e => e.ErrorMessage)
                                                           });
 
-                    return new BadRequestObjectResult( new ApiValidationErrorResponse() 
+                    return new BadRequestObjectResult(new ApiValidationErrorResponse()
                     {
                         Errors = errors
                     });
@@ -54,6 +55,8 @@ namespace LinkDev.Talabat.APIs
 
             webApplicationBuilder.Services.AddPersistenceServices(webApplicationBuilder.Configuration);
             webApplicationBuilder.Services.AddApplicationServices();
+            webApplicationBuilder.Services.AddInfrastructureServices(webApplicationBuilder.Configuration);
+
 
 
             #endregion

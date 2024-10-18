@@ -30,9 +30,12 @@ namespace LinkDev.Talabat.APIs
                 options.SuppressModelStateInvalidFilter = false;
                 options.InvalidModelStateResponseFactory = (actionContext) =>
                 {
-                   var errors =  actionContext.ModelState.Where(p => p.Value!.Errors.Count > 0)
-                                       .SelectMany(p => p.Value!.Errors)
-                                       .Select(e => e.ErrorMessage);
+                    var errors = actionContext.ModelState.Where(p => p.Value!.Errors.Count > 0)
+                                                          .Select(p => new ApiValidationErrorResponse.ValidationError()
+                                                          {
+                                                              Field = p.Key,
+                                                              Errors = p.Value!.Errors.Select(e => e.ErrorMessage)
+                                                          });
 
                     return new BadRequestObjectResult( new ApiValidationErrorResponse() 
                     {

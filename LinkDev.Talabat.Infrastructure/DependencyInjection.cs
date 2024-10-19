@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using LinkDev.Talabat.Core.Domain.Contracts.Infrastructure;
+using LinkDev.Talabat.Infrastructure.Basket_Repository;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StackExchange.Redis;
 
@@ -6,7 +8,7 @@ namespace LinkDev.Talabat.Infrastructure
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services , IConfiguration configuration) 
+        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
 
             services.AddSingleton(typeof(IConnectionMultiplexer), (serviceProvider) =>
@@ -15,6 +17,8 @@ namespace LinkDev.Talabat.Infrastructure
                 var connectionMultiplexer = ConnectionMultiplexer.Connect(connectionString!);
                 return connectionMultiplexer;
             });
+
+            services.AddScoped(typeof(IBasketRepository), typeof(BasketRepository));
             return services;
         }
     }

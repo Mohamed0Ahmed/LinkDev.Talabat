@@ -1,13 +1,8 @@
 ﻿using LinkDev.Talabat.Core.Domain.Common;
 using LinkDev.Talabat.Core.Domain.Contracts;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace LinkDev.Talabat.Infrastructure.Persistence.Repositories.GenericRepository
+namespace LinkDev.Talabat.Infrastructure.Persistence.GenericRepository
 {
     internal static class SpecificationEvaluator<TEntity, TKey>
         where TEntity : BaseEntity<TKey>
@@ -33,7 +28,7 @@ namespace LinkDev.Talabat.Infrastructure.Persistence.Repositories.GenericReposit
             if (spec.IsPaginationEnable)
                 query = query.Skip(spec.Skip).Take(spec.Take);
 
-                query = spec.Includes.Aggregate(query, (currentQuery, includeExpression) => currentQuery.Include(includeExpression));
+            query = spec.Includes.Aggregate(query, (currentQuery, includeExpression) => currentQuery.Include(includeExpression));
 
 
             return query;

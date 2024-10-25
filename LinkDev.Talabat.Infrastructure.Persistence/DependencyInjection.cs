@@ -1,5 +1,5 @@
-﻿using LinkDev.Talabat.Core.Application.Abstraction;
-using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
+﻿using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
+using LinkDev.Talabat.Core.Domain.Entities.Identities;
 using LinkDev.Talabat.Infrastructure.Persistence.Data;
 using LinkDev.Talabat.Infrastructure.Persistence.Data.DataSeeding.Services;
 using LinkDev.Talabat.Infrastructure.Persistence.Data.Interceptors;
@@ -47,6 +47,9 @@ namespace LinkDev.Talabat.Infrastructure.Persistence
 
 
             #endregion
+
+
+            services.AddIdentityCore<ApplicationUser>();
 
 
             services.AddScoped<IUnitOfWork , UnitOfWork>();

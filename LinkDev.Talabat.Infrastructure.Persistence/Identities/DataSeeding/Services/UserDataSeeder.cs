@@ -22,16 +22,19 @@ namespace LinkDev.Talabat.Infrastructure.Persistence.Identities.DataSeeding.Serv
 
         public async Task SeedAsync()
         {
-
-            var user = new ApplicationUser
+            if (!_userManager.Users.Any())
             {
-                DisplayName = "Mohamed Ahmed",
-                UserName = "Mohamed.Ahmed",
-                Email = "mohamed@gmail.com",
-                PhoneNumber = "01122334455",
-            };
 
-           await _userManager.CreateAsync(user , "P@ssw0rd");
+                var user = new ApplicationUser
+                {
+                    DisplayName = "Mohamed Ahmed",
+                    UserName = "Mohamed.Ahmed",
+                    Email = "mohamed@gmail.com",
+                    PhoneNumber = "01122334455",
+                };
+
+                await _userManager.CreateAsync(user, "P@ssw0rd"); 
+            }
 
         }
 

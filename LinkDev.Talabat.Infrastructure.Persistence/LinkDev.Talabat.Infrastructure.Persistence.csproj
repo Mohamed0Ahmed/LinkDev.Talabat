@@ -18,8 +18,6 @@
 
   <ItemGroup>
     <Folder Include="Identities\Interceptors\" />
-    <Folder Include="Identities\Migrations\" />
-    <Folder Include="Identities\DataSeeding\" />
   </ItemGroup>
 
 </Project>

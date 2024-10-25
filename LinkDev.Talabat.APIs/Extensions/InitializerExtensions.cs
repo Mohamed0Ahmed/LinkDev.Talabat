@@ -1,4 +1,7 @@
 ﻿using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+
 namespace LinkDev.Talabat.APIs.Extensions
 {
     public static class InitializerExtensions
@@ -8,23 +11,34 @@ namespace LinkDev.Talabat.APIs.Extensions
             using var scope = app.Services.CreateAsyncScope();
             var services = scope.ServiceProvider;
 
-            var dataSeeder = services.GetRequiredService<IDataSeeder>();
-            var databaseUpdate = services.GetRequiredService<IMigrationService>();
-
+            // Retrieve all services for migration and seeding
+            var dataSeeders = services.GetServices<IDataSeeder>();            // Get all IDataSeeder 
+            var migrationServices = services.GetServices<IMigrationService>(); // Get all IMigrationService 
             var loggerFactory = services.GetRequiredService<ILoggerFactory>();
-
+            var logger = loggerFactory.CreateLogger<Program>();
 
             try
             {
-                await databaseUpdate.UpdateDatabaseAsync(); // Update Database
-                await dataSeeder.SeedAsync();               // Seeding Data
+            
+                logger.LogInformation("Starting database migrations...");
+                foreach (var migrationService in migrationServices)
+                {
+                    await migrationService.UpdateDatabaseAsync(); 
+                }
+                logger.LogInformation("Database migrations completed successfully");
 
+         
+                logger.LogInformation("Starting data seeding...");
+                foreach (var seeder in dataSeeders)
+                {
+                    await seeder.SeedAsync(); 
+                }
+                logger.LogInformation("Data seeding completed successfully");
             }
             catch (Exception ex)
             {
-                var logger = loggerFactory.CreateLogger<Program>();
-                logger.LogError(ex, "An Error has been occurred during apply Migrations Or Seeding Data.");
-
+                logger.LogError(ex, "An error occurred during database migrations or data seeding");
+                throw; 
             }
 
             return app;

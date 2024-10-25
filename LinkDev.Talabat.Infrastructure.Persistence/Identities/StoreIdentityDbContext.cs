@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LinkDev.Talabat.Infrastructure.Persistence.Identities
 {
-    internal class StoreIdentityDbContext : IdentityDbContext<ApplicationUser>
+    public class StoreIdentityDbContext : IdentityDbContext<ApplicationUser>
     {
 
         public StoreIdentityDbContext(DbContextOptions<StoreIdentityDbContext> options)
@@ -26,6 +26,10 @@ namespace LinkDev.Talabat.Infrastructure.Persistence.Identities
 
             builder.ApplyConfiguration(new ApplicationUserConfigurations());
             builder.ApplyConfiguration(new AddressConfigurations());
+
+
+            builder.ApplyConfigurationsFromAssembly(typeof(AssemblyInformation).Assembly,
+                type => type.Namespace == "LinkDev.Talabat.Infrastructure.Persistence.Identities.Configurations");
         }
 
 

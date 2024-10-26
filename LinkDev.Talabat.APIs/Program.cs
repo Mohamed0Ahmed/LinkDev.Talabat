@@ -1,6 +1,6 @@
 using LinkDev.Talabat.APIs.Controllers.Errors;
 using LinkDev.Talabat.APIs.Extensions;
-using LinkDev.Talabat.APIs.Middlewares;
+using LinkDev.Talabat.APIs.Middleware;
 using LinkDev.Talabat.APIs.Services;
 using LinkDev.Talabat.Application.Abstraction.Interfaces;
 using LinkDev.Talabat.Core.Application;
@@ -44,7 +44,7 @@ namespace LinkDev.Talabat.APIs
 
                     return new BadRequestObjectResult(new ApiValidationErrorResponse()
                     {
-                        Errors = errors
+                        Errors = (IEnumerable<string>)errors
                     });
                 };
             });

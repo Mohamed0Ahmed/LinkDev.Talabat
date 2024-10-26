@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using LinkDev.Talabat.Core.Application.Abstraction.Interfaces;
 using LinkDev.Talabat.Core.Application.Abstraction.Interfaces.Basket;
+using LinkDev.Talabat.Core.Application.Abstraction.Interfaces.Products;
 using LinkDev.Talabat.Core.Application.Abstraction.Services;
 using LinkDev.Talabat.Core.Application.Services.Products;
 using LinkDev.Talabat.Core.Domain.Contracts.Infrastructure;

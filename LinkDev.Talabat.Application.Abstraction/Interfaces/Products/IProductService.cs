@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LinkDev.Talabat.Core.Application.Abstraction.Interfaces
+namespace LinkDev.Talabat.Core.Application.Abstraction.Interfaces.Products
 {
     public interface IProductService
     {

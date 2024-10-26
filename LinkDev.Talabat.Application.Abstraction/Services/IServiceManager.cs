@@ -1,5 +1,5 @@
-﻿using LinkDev.Talabat.Core.Application.Abstraction.Interfaces;
-using LinkDev.Talabat.Core.Application.Abstraction.Interfaces.Basket;
+﻿using LinkDev.Talabat.Core.Application.Abstraction.Interfaces.Basket;
+using LinkDev.Talabat.Core.Application.Abstraction.Interfaces.Products;
 using System;
 using System.Collections.Generic;
 using System.Linq;

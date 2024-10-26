@@ -1,4 +1,6 @@
-﻿using LinkDev.Talabat.Core.Domain.Entities.Identities;
+﻿using LinkDev.Talabat.Core.Application.Abstraction.Interfaces.Auth;
+using LinkDev.Talabat.Core.Application.Services.Auth;
+using LinkDev.Talabat.Core.Domain.Entities.Identities;
 using LinkDev.Talabat.Infrastructure.Persistence.Identities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -36,6 +38,11 @@ namespace LinkDev.Talabat.APIs.Extensions
             })
                 .AddEntityFrameworkStores<StoreIdentityDbContext>();
 
+            services.AddScoped(typeof(IAuthServices), typeof(AuthServices));
+            services.AddScoped(typeof(Func<IAuthServices>), (serviceProvider) =>
+            {
+                return () => serviceProvider.GetService<IAuthServices>();
+            });
 
             return services;
         }

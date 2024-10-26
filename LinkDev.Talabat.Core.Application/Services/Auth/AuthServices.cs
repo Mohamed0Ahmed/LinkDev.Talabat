@@ -3,10 +3,14 @@ using LinkDev.Talabat.Core.Application.Abstraction.Interfaces.Auth;
 using LinkDev.Talabat.Core.Application.Exceptions;
 using LinkDev.Talabat.Core.Domain.Entities.Identities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace LinkDev.Talabat.Core.Application.Services.Auth
 {
-    internal class AuthServices(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager) : IAuthServices
+    public class AuthServices(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager) : IAuthServices
     {
 
 
@@ -38,7 +42,7 @@ namespace LinkDev.Talabat.Core.Application.Services.Auth
                 Id = user.Id,
                 DisplayName = user.DisplayName,
                 Email = user.Email!,
-                Token = "wait"
+                Token = await GenerateTokenAsync(user),
             };
 
 
@@ -67,13 +71,53 @@ namespace LinkDev.Talabat.Core.Application.Services.Auth
                 Id = user.Id,
                 DisplayName = user.DisplayName,
                 Email = user.Email!,
-                Token = "wait"
+                Token = await GenerateTokenAsync(user),
             };
 
             return response;
 
         }
 
+
+        public async Task<string> GenerateTokenAsync(ApplicationUser user)
+        {
+            var userClaims = await userManager.GetClaimsAsync(user);
+            var rolesAsClaims = new List<Claim>();
+
+
+            var roles = await userManager.GetRolesAsync(user);
+            foreach (var role in roles)
+            {
+                rolesAsClaims.Add(new Claim(ClaimTypes.Role, role.ToString()));
+            }
+
+
+            var claims = new List<Claim>()
+            {
+                new Claim(ClaimTypes.PrimarySid , user.Id),
+                new Claim(ClaimTypes.Email , user.Email!),
+                new Claim(ClaimTypes.GivenName , user.DisplayName),
+
+            }.Union(userClaims).Union(rolesAsClaims);
+
+
+
+            var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("your-256-bit-secret"));
+            var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
+
+            var tokenObj = new JwtSecurityToken(
+
+                issuer: "TalabatIdentity",
+                audience: "TalabatUsers",
+                expires: DateTime.UtcNow.AddMinutes(10),
+                claims:claims,
+                signingCredentials: signingCredentials
+                
+
+                );
+
+            return new JwtSecurityTokenHandler().WriteToken(tokenObj);
+        }
 
     }
 }

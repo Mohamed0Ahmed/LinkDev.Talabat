@@ -102,7 +102,7 @@ namespace LinkDev.Talabat.Core.Application.Services.Auth
 
 
 
-            var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("your-256-bit-secret"));
+            var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("your-256-bit-secretsdfsdfsdfds-gfdgdfg"));
             var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
 
             var tokenObj = new JwtSecurityToken(

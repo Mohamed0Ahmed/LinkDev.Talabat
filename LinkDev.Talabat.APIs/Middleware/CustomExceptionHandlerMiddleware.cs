@@ -4,7 +4,7 @@ using LinkDev.Talabat.Core.Application.Exceptions;
 using System.Net;
 using System.Text.Json;
 
-namespace LinkDev.Talabat.APIs.Middlewares
+namespace LinkDev.Talabat.APIs.Middleware
 {
     public class CustomExceptionHandlerMiddleware
     {
@@ -75,11 +75,29 @@ namespace LinkDev.Talabat.APIs.Middlewares
                     await httpContext.Response.WriteAsync(response.ToString());
                     break;
 
+                case ValidationException validationException:
+                    httpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    httpContext.Response.ContentType = "application/json";
+
+                    response = new ApiValidationErrorResponse( ex.Message) { Errors = validationException.Errors};
+
+                    await httpContext.Response.WriteAsync(response.ToString());
+                    break;
+
                 case BadRequestException:
                     httpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
                     httpContext.Response.ContentType = "application/json";
 
                     response = new ApiResponse(400, ex.Message);
+
+                    await httpContext.Response.WriteAsync(response.ToString());
+                    break;
+
+                case UnauthorizedException:
+                    httpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                    httpContext.Response.ContentType = "application/json";
+
+                    response = new ApiResponse(401, ex.Message);
 
                     await httpContext.Response.WriteAsync(response.ToString());
                     break;
@@ -95,7 +113,7 @@ namespace LinkDev.Talabat.APIs.Middlewares
                     httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                     httpContext.Response.ContentType = "application/json";
 
-                    await httpContext.Response.WriteAsync(JsonSerializer.Serialize(response, new JsonSerializerOptions() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase }));
+                    await httpContext.Response.WriteAsync(response.ToString());
                     break;
 
             }

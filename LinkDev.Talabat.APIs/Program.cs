@@ -1,12 +1,16 @@
 using LinkDev.Talabat.APIs.Controllers.Errors;
 using LinkDev.Talabat.APIs.Extensions;
-using LinkDev.Talabat.APIs.Middlewares;
+using LinkDev.Talabat.APIs.Middleware;
 using LinkDev.Talabat.APIs.Services;
 using LinkDev.Talabat.Application.Abstraction.Interfaces;
 using LinkDev.Talabat.Core.Application;
-using LinkDev.Talabat.Infrastructure.Persistence;
-using Microsoft.AspNetCore.Mvc;
+using LinkDev.Talabat.Core.Domain.Entities.Identities;
 using LinkDev.Talabat.Infrastructure;
+using LinkDev.Talabat.Infrastructure.Persistence;
+using LinkDev.Talabat.Infrastructure.Persistence.Identities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 
 namespace LinkDev.Talabat.APIs
 {
@@ -40,25 +44,23 @@ namespace LinkDev.Talabat.APIs
 
                     return new BadRequestObjectResult(new ApiValidationErrorResponse()
                     {
-                        Errors = errors
+                        Errors = (IEnumerable<string>)errors
                     });
                 };
             });
 
 
 
-            webApplicationBuilder.Services.AddEndpointsApiExplorer();
-            webApplicationBuilder.Services.AddSwaggerGen();
+            webApplicationBuilder.Services.AddEndpointsApiExplorer().AddSwaggerGen();
 
-            webApplicationBuilder.Services.AddHttpContextAccessor();
-            webApplicationBuilder.Services.AddScoped<ILoggedInUserService, LoggedInUserService>();
+            webApplicationBuilder.Services.AddHttpContextAccessor().AddScoped<ILoggedInUserService, LoggedInUserService>();
 
-            webApplicationBuilder.Services.AddPersistenceServices(webApplicationBuilder.Configuration);
             webApplicationBuilder.Services.AddApplicationServices();
+            webApplicationBuilder.Services.AddPersistenceServices(webApplicationBuilder.Configuration);
             webApplicationBuilder.Services.AddInfrastructureServices(webApplicationBuilder.Configuration);
 
-
-
+            webApplicationBuilder.Services.AddIdentityServices(webApplicationBuilder.Configuration);
+         
             #endregion
 
 
@@ -68,7 +70,7 @@ namespace LinkDev.Talabat.APIs
 
             #region  Databases Initilaztion And Data Seeding
 
-            await app.InitializeStoreContext();
+            await app.InitializeDbAsync();
 
 
 
@@ -94,6 +96,8 @@ namespace LinkDev.Talabat.APIs
             app.UseStatusCodePagesWithReExecute("/Errors/{0}");
 
             app.UseStaticFiles();
+
+            app.UseAuthentication();
             app.UseAuthorization();
 
 

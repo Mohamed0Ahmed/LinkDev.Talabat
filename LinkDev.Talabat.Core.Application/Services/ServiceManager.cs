@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using LinkDev.Talabat.Core.Application.Abstraction.Interfaces;
+using LinkDev.Talabat.Core.Application.Abstraction.Interfaces.Auth;
 using LinkDev.Talabat.Core.Application.Abstraction.Interfaces.Basket;
+using LinkDev.Talabat.Core.Application.Abstraction.Interfaces.Products;
 using LinkDev.Talabat.Core.Application.Abstraction.Services;
 using LinkDev.Talabat.Core.Application.Services.Products;
-using LinkDev.Talabat.Core.Domain.Contracts.Infrastructure;
 using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
 using Microsoft.Extensions.Configuration;
 namespace LinkDev.Talabat.Core.Application.Services
@@ -17,8 +17,11 @@ namespace LinkDev.Talabat.Core.Application.Services
 
         private readonly Lazy<IProductService> _productService;
         private readonly Lazy<IBasketService> _basketService;
+        private readonly Lazy<IAuthServices> _authServices;
 
-        public ServiceManager(IUnitOfWork unitOfWork, IMapper mapper, IConfiguration configuration, Func<IBasketService> basketServiceFactory)
+        public ServiceManager(IUnitOfWork unitOfWork, IMapper mapper, IConfiguration configuration,
+            Func<IBasketService> basketServiceFactory,
+            Func<IAuthServices> authServiceFactory)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -26,11 +29,14 @@ namespace LinkDev.Talabat.Core.Application.Services
 
 
             _productService = new Lazy<IProductService>(() => new ProductService(_unitOfWork, _mapper));
-            _basketService = new Lazy<IBasketService>(basketServiceFactory);
+            _basketService = new Lazy<IBasketService>(basketServiceFactory , LazyThreadSafetyMode.ExecutionAndPublication);
+            _authServices = new Lazy<IAuthServices>(authServiceFactory , LazyThreadSafetyMode.ExecutionAndPublication);
         }
 
         public IProductService ProductService => _productService.Value;
 
         public IBasketService BasketService => _basketService.Value;
+
+        public IAuthServices AuthServices => _authServices.Value;
     }
 }

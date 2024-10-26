@@ -1,9 +1,12 @@
-﻿using LinkDev.Talabat.Core.Application.Abstraction;
-using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
+﻿using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
+using LinkDev.Talabat.Core.Domain.Entities.Identities;
 using LinkDev.Talabat.Infrastructure.Persistence.Data;
 using LinkDev.Talabat.Infrastructure.Persistence.Data.DataSeeding.Services;
 using LinkDev.Talabat.Infrastructure.Persistence.Data.Interceptors;
 using LinkDev.Talabat.Infrastructure.Persistence.Data.Migrations.Services;
+using LinkDev.Talabat.Infrastructure.Persistence.Identities;
+using LinkDev.Talabat.Infrastructure.Persistence.Identities.DataSeeding.Services;
+using LinkDev.Talabat.Infrastructure.Persistence.Identities.Migrations.Services;
 using LinkDev.Talabat.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -17,6 +20,7 @@ namespace LinkDev.Talabat.Infrastructure.Persistence
         public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
         {
 
+            #region Store Context
 
             services.AddDbContext<StoreContext>((options) =>
             {
@@ -25,7 +29,29 @@ namespace LinkDev.Talabat.Infrastructure.Persistence
 
             services.AddScoped<IDataSeeder, DataSeeder>();
             services.AddScoped<IMigrationService, MigrationService>();
-            services.AddScoped<ISaveChangesInterceptor , CustomSaveChangesInterceptor>();
+            services.AddScoped<ISaveChangesInterceptor, CustomSaveChangesInterceptor>();
+
+
+            #endregion
+
+
+
+            #region Identity Context
+
+            services.AddDbContext<StoreIdentityDbContext>((options) =>
+            {
+                options.UseLazyLoadingProxies().UseSqlServer(configuration.GetConnectionString("IdentityContext"));
+            });
+            services.AddScoped<IDataSeeder, UserDataSeeder>();
+            services.AddScoped<IMigrationService, UserMigrationService>();
+
+
+            #endregion
+
+
+            services.AddIdentityCore<ApplicationUser>();
+
+
             services.AddScoped<IUnitOfWork , UnitOfWork>();
             return services;
         }

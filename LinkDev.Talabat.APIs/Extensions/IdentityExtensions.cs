@@ -3,8 +3,11 @@ using LinkDev.Talabat.Core.Application.Abstraction.Interfaces.Auth;
 using LinkDev.Talabat.Core.Application.Services.Auth;
 using LinkDev.Talabat.Core.Domain.Entities.Identities;
 using LinkDev.Talabat.Infrastructure.Persistence.Identities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace LinkDev.Talabat.APIs.Extensions
 {
@@ -45,6 +48,26 @@ namespace LinkDev.Talabat.APIs.Extensions
             services.AddScoped(typeof(Func<IAuthServices>), (serviceProvider) =>
             {
                 return () => serviceProvider.GetService<IAuthServices>();
+            });
+
+
+            services.AddAuthentication(authenticationOptions =>
+            {
+                authenticationOptions.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer((configurationOptions)=>
+            {
+                configurationOptions.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidateLifetime = true,
+
+                    ClockSkew = TimeSpan.FromMinutes(0),
+                    ValidIssuer = configuration["JwtSettings:Issuer"],
+                    ValidAudience = configuration["JwtSettings:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtSettings:Key"]!))
+                };
             });
 
             return services;

@@ -113,7 +113,7 @@ namespace LinkDev.Talabat.APIs.Middleware
                     httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                     httpContext.Response.ContentType = "application/json";
 
-                    await httpContext.Response.WriteAsync(JsonSerializer.Serialize(response, new JsonSerializerOptions() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase }));
+                    await httpContext.Response.WriteAsync(response.ToString());
                     break;
 
             }

@@ -6,7 +6,7 @@ using System.Collections.Concurrent;
 
 namespace LinkDev.Talabat.Infrastructure.Persistence.Repositories
 {
-    internal class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
 
 

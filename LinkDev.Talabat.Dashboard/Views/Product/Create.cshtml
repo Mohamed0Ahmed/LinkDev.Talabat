@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Create Product";
+}
+
+<h1>Create Product</h1>
+
+<div class="container">
+    <div class="card mt-3">
+        <div class="card-header">
+            <h2>Product Information</h2>
+        </div>
+        <div class="card-body">
+            <form asp-action="Create" method="post" enctype="multipart/form-data">
+
+                <partial name="CreateUpdatePartialView" model="Model"></partial>
+                <button type="submit" class="btn btn-primary my-3">Create Product</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,7 +1,9 @@
 ﻿using LinkDev.Talabat.Core.Application.Abstraction.DTOs.Auth;
 using LinkDev.Talabat.Core.Domain.Entities.Identities;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace LinkDev.Talabat.Dashboard.Controllers
 {
@@ -39,6 +41,16 @@ namespace LinkDev.Talabat.Dashboard.Controllers
                 ModelState.AddModelError(string.Empty, "You are not authorized to access this page.");
                 return View(login);
             }
+            var claims = new List<Claim>
+             {
+                new (ClaimTypes.NameIdentifier, user.Id),
+                new (ClaimTypes.Email, user.Email!)
+              };
+
+            var claimsIdentity = new ClaimsIdentity(claims, IdentityConstants.ApplicationScheme);
+            var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+
+            await _signInManager.Context.SignInAsync(IdentityConstants.ApplicationScheme, claimsPrincipal);
 
 
             return RedirectToAction("Index", "Home");

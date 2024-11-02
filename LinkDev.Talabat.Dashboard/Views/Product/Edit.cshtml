@@ -1,0 +1,24 @@
+﻿@model ProductViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit @Model.Name</h1>
+<div class="container">
+    <div class="card mt-3">
+        <div class="card-header">
+            <h2>Product Information</h2>
+        </div>
+        <div class="card-body">
+            <form asp-action="Edit" method="post" enctype="multipart/form-data">
+
+                <partial name="CreateUpdatePartialView" model="Model"></partial>
+                <div class="my-3">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                    <a asp-action="Index" class="btn btn-light">Back To List</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

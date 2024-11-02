@@ -1,0 +1,35 @@
+﻿@model ProductViewModel
+
+@{
+    ViewData["Title"] = "Delete Product";
+}
+
+<div class="container">
+    <div class="card mt-3">
+        <div class="card-header bg-danger text-white">
+            <h2>Product Information</h2>
+        </div>
+        <div class="card-body">
+            <form asp-action="Delete" method="post">
+                <h4 class="my-3">Are you sure you want to delete <strong>@Model.Name</strong>?</h4>
+
+                <div class="mb-3">
+                    <strong>Description:</strong>
+                    <p>@Model.Description</p>
+                </div>
+
+                <div class="mb-3">
+                    <strong>Price:</strong>
+                    <p>@Model.Price.ToString("C")</p>  
+                </div>
+
+                <p class="text-warning">This action cannot be undone.</p>
+
+                <div class="d-flex justify-content-between">
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                    <a asp-action="Index" class="btn btn-secondary">Back To List</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

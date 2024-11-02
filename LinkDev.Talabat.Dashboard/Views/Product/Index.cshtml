@@ -1,0 +1,102 @@
+﻿@model PaginatedProductViewModel
+@{
+    ViewData["Title"] = "All Products";
+}
+
+<h1>All Products</h1>
+<a asp-action="Create" class="btn btn-outline-primary m-2">Add New Product</a>
+
+@if (Model.Products.Any())
+{
+    <div class="container">
+        <table class="table table-hover table-striped table-bordered dt-responsive nowrap">
+            <thead class="bg-dark text-white text-center">
+                <tr>
+                    <th>Id</th>
+                    <th>Picture</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Brand</th>
+                    <th>Category</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in Model.Products)
+                {
+                    <tr>
+                        <td>@product.Id</td>
+                        <td class="text-center">
+                            <img class="w-25 "
+                                 src="@((product.PictureUrl!.StartsWith("/") ? "" : "/") + product.PictureUrl)"
+                                 alt="Product Image" />
+                        </td>
+                        <td>@product.Name</td>
+                        <td>@product.Description</td>
+                        <td>@product.Price</td>
+                        <td>@product.Brand?.Name</td>
+                        <td>@product.Category?.Name</td>
+                        <td>
+                            <a class="btn mb-2 text-warning" asp-action="Edit" asp-route-id="@product.Id">
+                                <i class="fas fa-pen"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <a class="btn text-danger" asp-action="Delete" asp-route-id="@product.Id">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pagination Controls -->
+    <nav aria-label="Page navigation" class="mt-4">
+        <ul class="pagination justify-content-center">
+            @if (Model.HasPreviousPage)
+            {
+                <li class="page-item">
+                    <a class="page-link text-dark bg-light border-dark" asp-action="Index" asp-route-pageIndex="@(Model.PageIndex - 1)" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            }
+
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="page-item @(i == Model.PageIndex ? "active" : "")">
+                    <a class="page-link @(i == Model.PageIndex ? "text-white bg-black border-dark" : "text-dark bg-light border-dark")"
+                       asp-action="Index" asp-route-pageIndex="@i">
+                        @i
+                    </a>
+                </li>
+            }
+
+            @if (Model.HasNextPage)
+            {
+                <li class="page-item">
+                    <a class="page-link text-dark bg-light border-dark" asp-action="Index" asp-route-pageIndex="@(Model.PageIndex + 1)" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </nav>
+
+
+}
+else
+{
+    <div class="mt-3 p-3 alert-warning">
+        <h2>There are no Products!</h2>
+    </div>
+}
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

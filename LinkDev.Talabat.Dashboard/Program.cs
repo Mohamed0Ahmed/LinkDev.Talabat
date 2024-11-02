@@ -1,6 +1,11 @@
+using LinkDev.Talabat.APIs.Services;
+using LinkDev.Talabat.Application.Abstraction.Interfaces;
+using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
 using LinkDev.Talabat.Core.Domain.Entities.Identities;
+using LinkDev.Talabat.Dashboard.Models;
 using LinkDev.Talabat.Infrastructure.Persistence.Data;
 using LinkDev.Talabat.Infrastructure.Persistence.Identities;
+using LinkDev.Talabat.Infrastructure.Persistence.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,6 +22,10 @@ namespace LinkDev.Talabat.Dashboard
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+
+            builder.Services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
+            builder.Services.AddAutoMapper(typeof(MappingProfile));
+            builder.Services.AddScoped<ILoggedInUserService, LoggedInUserService>();
 
 
             builder.Services.AddDbContext<StoreContext>((options) =>

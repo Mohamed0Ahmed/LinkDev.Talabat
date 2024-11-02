@@ -7,13 +7,15 @@ namespace LinkDev.Talabat.APIs.Services
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public string? UserId { get; }
+        public string UserId { get; private set; }
 
 
         public LoggedInUserService(IHttpContextAccessor httpContextAccessor)
         {
-            _httpContextAccessor = httpContextAccessor;
-            UserId = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.PrimarySid);
+            _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
+
+            // Use ClaimTypes.NameIdentifier to retrieve the UserId claim
+            UserId = _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
         }
 
 

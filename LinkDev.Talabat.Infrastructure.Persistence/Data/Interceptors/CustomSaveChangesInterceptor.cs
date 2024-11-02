@@ -1,17 +1,11 @@
-﻿using LinkDev.Talabat.Core.Domain.Common;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
+﻿using LinkDev.Talabat.Application.Abstraction.Interfaces;
+using LinkDev.Talabat.Core.Domain.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LinkDev.Talabat.Application.Abstraction.Interfaces;
 
 namespace LinkDev.Talabat.Infrastructure.Persistence.Data.Interceptors
 {
-    internal class CustomSaveChangesInterceptor : SaveChangesInterceptor
+    public class CustomSaveChangesInterceptor : SaveChangesInterceptor
     {
         private readonly ILoggedInUserService _loggedInUserService;
 
@@ -21,11 +15,7 @@ namespace LinkDev.Talabat.Infrastructure.Persistence.Data.Interceptors
         }
 
 
-        public override int SavedChanges(SaveChangesCompletedEventData eventData, int result)
-        {
-            UpdateEntities(eventData.Context);
-            return base.SavedChanges(eventData, result);
-        }
+     
 
 
         public override ValueTask<int> SavedChangesAsync(SaveChangesCompletedEventData eventData, int result, CancellationToken cancellationToken = default)
@@ -38,20 +28,29 @@ namespace LinkDev.Talabat.Infrastructure.Persistence.Data.Interceptors
 
         private void UpdateEntities (DbContext? dbContext)
         {
-            if (dbContext == null)
-                return;
 
+            if (dbContext is null) return;
 
-            foreach (var entity in dbContext.ChangeTracker.Entries<BaseAuditableEntity<int>>().Where(e => e.State is EntityState.Added or EntityState.Modified))
+            var utcNow = DateTime.UtcNow;
+            foreach (var entry in dbContext.ChangeTracker.Entries<BaseAuditableEntity<int>>())
             {
-                if (entity.State is EntityState.Added)
+                if (entry is { State: EntityState.Added or EntityState.Modified })
                 {
-                    entity.Entity.CreatedBy = _loggedInUserService.UserId!;
-                    entity.Entity.CreatedOn = DateTime.UtcNow;
-                }
-                entity.Entity.LastModifiedBy = _loggedInUserService.UserId!;
-                entity.Entity.LastModifiedOn = DateTime.UtcNow;
+                    if (entry.State == EntityState.Added)
+                    {
 
+                        entry.Entity.CreatedBy = string.IsNullOrWhiteSpace(_loggedInUserService.UserId)
+                           ? "System"
+                           : _loggedInUserService.UserId;
+
+                        entry.Entity.CreatedOn = utcNow;
+                    }
+
+                    entry.Entity.LastModifiedBy = string.IsNullOrWhiteSpace(_loggedInUserService.UserId)
+                       ? "System"
+                       : _loggedInUserService.UserId;
+                    entry.Entity.LastModifiedOn = utcNow;
+                }
             }
         }
 

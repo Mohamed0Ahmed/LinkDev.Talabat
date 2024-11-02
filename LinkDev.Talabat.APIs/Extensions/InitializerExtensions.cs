@@ -1,6 +1,4 @@
 ﻿using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace LinkDev.Talabat.APIs.Extensions
 {

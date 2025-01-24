@@ -10,7 +10,7 @@ namespace LinkDev.Talabat.Core.Domain.Specifications
     {
 
         public Expression<Func<TEntity, bool>>? Criteria { get; set; }
-        public List<Expression<Func<TEntity, object>>> Includes { get; set; } = new();  // Initialize with empty list 
+        public List<Expression<Func<TEntity, object>>> Includes { get; set; } = [];  // Initialize with empty list 
         public Expression<Func<TEntity, object>>? OrderBy { get; set; }
         public Expression<Func<TEntity, object>>? OrderByDesc { get; set; }
         public int Skip { get ; set ; }

@@ -5,29 +5,30 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LinkDev.Talabat.Dashboard.Controllers
 {
-    public class BrandController : Controller
+    public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILoggedInUserService _loggedUserService;
 
-        public BrandController(IUnitOfWork unitOfWork, ILoggedInUserService loggedUserService)
+        public CategoryController(IUnitOfWork unitOfWork, ILoggedInUserService loggedUserService)
         {
             _unitOfWork = unitOfWork;
             _loggedUserService = loggedUserService;
         }
 
-        // GET: Brand/Index
+
+        // GET: Category/Index
         public async Task<IActionResult> Index()
         {
-            var brands = await _unitOfWork.GetRepository<ProductBrand, int>().GetAllAsync();
+            var brands = await _unitOfWork.GetRepository<ProductCategory, int>().GetAllAsync();
             return View(brands);
         }
 
-        // POST: Brand/Create
+        // POST: Category/Create
         [HttpPost]
         public async Task<JsonResult> Create(string Name)
         {
-            var productBrand = new ProductBrand
+            var productCategory = new ProductCategory
             {
                 Id = 0,
                 Name = Name,
@@ -35,15 +36,15 @@ namespace LinkDev.Talabat.Dashboard.Controllers
                 LastModifiedBy = _loggedUserService.UserId ?? "System"
             };
 
-            if (string.IsNullOrEmpty(productBrand.Name) || productBrand.Name.Length > 100)
+            if (string.IsNullOrEmpty(productCategory.Name) || productCategory.Name.Length > 100)
             {
-                return Json(new { success = false, message = "Invalid data: Brand name is required and can't be longer than 100 characters." });
+                return Json(new { success = false, message = "Invalid data: Category name is required and can't be longer than 100 characters." });
             }
 
             try
             {
-                // Add the new brand to the repository
-                await _unitOfWork.GetRepository<ProductBrand, int>().AddAsync(productBrand);
+                // Add the new Category to the repository
+                await _unitOfWork.GetRepository<ProductCategory, int>().AddAsync(productCategory);
                 await _unitOfWork.CompleteAsync();
                 return Json(new { success = true });
             }
@@ -53,19 +54,19 @@ namespace LinkDev.Talabat.Dashboard.Controllers
             }
         }
 
-        // POST: Brand/Delete/5
+        // POST: Category/Delete/5
         [HttpPost]
         public async Task<JsonResult> Delete(int id)
         {
-            var productBrand = await _unitOfWork.GetRepository<ProductBrand, int>().GetAsync(id);
-            if (productBrand == null)
+            var productCategory = await _unitOfWork.GetRepository<ProductCategory, int>().GetAsync(id);
+            if (productCategory == null)
             {
-                return Json(new { success = false, message = "Brand not found." });
+                return Json(new { success = false, message = "Category not found." });
             }
 
             try
             {
-                _unitOfWork.GetRepository<ProductBrand, int>().Delete(productBrand);
+                _unitOfWork.GetRepository<ProductCategory, int>().Delete(productCategory);
                 await _unitOfWork.CompleteAsync();
                 return Json(new { success = true });
             }

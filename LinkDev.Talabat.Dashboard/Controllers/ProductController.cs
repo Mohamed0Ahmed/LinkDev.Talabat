@@ -68,8 +68,8 @@ namespace LinkDev.Talabat.Dashboard.Controllers
 
                 product.NormalizedName = model.Name.ToUpperInvariant();
 
-                product.CreatedBy = _LoggedInUserService.UserId;
-                product.LastModifiedBy = _LoggedInUserService.UserId;
+                product.CreatedBy = _LoggedInUserService.UserId?? "System";
+                product.LastModifiedBy = _LoggedInUserService.UserId ?? "System";
 
                 product.PictureUrl = model.Image != null ? await SaveImage(model.Image) : null;
 
@@ -147,8 +147,8 @@ namespace LinkDev.Talabat.Dashboard.Controllers
                 }
 
                 var mappedProduct = _mapper.Map<ProductViewModel, Product>(model);
-                mappedProduct.CreatedBy = _LoggedInUserService.UserId;
-                mappedProduct.LastModifiedBy = _LoggedInUserService.UserId;
+                mappedProduct.CreatedBy = _LoggedInUserService.UserId ?? "System";
+                mappedProduct.LastModifiedBy = _LoggedInUserService.UserId ?? "System";
                 mappedProduct.NormalizedName = model.Name.ToUpperInvariant();
 
                 _unitOfWork.GetRepository<Product, int>().Update(mappedProduct);

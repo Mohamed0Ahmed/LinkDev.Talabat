@@ -1,4 +1,5 @@
 ﻿using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
+using LinkDev.Talabat.Core.Domain.Entities.Orders;
 using LinkDev.Talabat.Core.Domain.Entities.Products;
 using System.Text.Json;
 
@@ -70,6 +71,27 @@ namespace LinkDev.Talabat.Infrastructure.Persistence.Data.DataSeeding.Services
                 {
 
                     await _dbContext.Products.AddRangeAsync(products);
+                    await _dbContext.SaveChangesAsync();
+
+                }
+
+            }
+
+
+            if (!_dbContext.DeliveryMethods.Any())
+            {
+
+
+                var filePath = Path.Combine(AppContext.BaseDirectory, "../../../..", "LinkDev.Talabat.Infrastructure.Persistence", "Data", "DataSeeding", "ProductJsonFiles", "delivery.json");
+
+
+                var deliveryMethodData = await File.ReadAllTextAsync(filePath);
+                var deliveryMethods = JsonSerializer.Deserialize<List<DeliveryMethod>>(deliveryMethodData);
+
+                if (deliveryMethods?.Count > 0)
+                {
+
+                    await _dbContext.DeliveryMethods.AddRangeAsync(deliveryMethods);
                     await _dbContext.SaveChangesAsync();
 
                 }

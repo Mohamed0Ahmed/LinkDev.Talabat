@@ -6,6 +6,6 @@ namespace LinkDev.Talabat.Core.Application.Abstraction.DTOs.Orders
     {
         public required string BasketId { get; set; }
         public required int DeliveryMethodId { get; set; }
-        public required string ShippingAddress { get; set; }
+        public required AddressDto ShippingAddress { get; set; }
     }
 }

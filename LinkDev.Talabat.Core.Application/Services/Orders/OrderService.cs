@@ -24,7 +24,7 @@ namespace LinkDev.Talabat.Core.Application.Services.Orders
 
             if (basket.Items.Any())
             {
-                var productRepo = unitOfWork.GetRepository<Product, int>();
+                var productRepo =  unitOfWork.GetRepository<Product, int>();
                 foreach (var item in basket.Items)
                 {
                     var product = await productRepo.GetAsync(item.Id);
@@ -43,7 +43,11 @@ namespace LinkDev.Talabat.Core.Application.Services.Orders
                             Product = productItemOrder,
                             Price = product.Price,
                             Quantity = item.Quantity,
+                            CreatedBy = "system",
+                            LastModifiedBy = "System",
                         };
+                         orderItems.Add(orderItem);
+             
 
                     }
                 }
@@ -56,16 +60,25 @@ namespace LinkDev.Talabat.Core.Application.Services.Orders
 
             var address = mapper.Map<Address>(order.ShippingAddress);
 
+            var deliveryMethod = await unitOfWork.GetRepository<DeliveryMethod, int>().GetAsync(order.DeliveryMethodId) ?? throw new BadRequestException("Invalid delivery method selected.");
+     
+
+
 
             // 4  Create Order
 
             var orderToCreate = new Order()
             {
-                BuyerEmail = buyerEmail,
+
                 ShippingAddress = address,
+                BuyerEmail = buyerEmail,
                 Items = orderItems,
                 SubTotal = subTotal,
                 DeliveryMethodId = order.DeliveryMethodId,
+                DeliveryMethod = deliveryMethod,
+                CreatedBy = "system",
+                LastModifiedBy = "System",
+
             };
 
             await unitOfWork.GetRepository<Order, int>().AddAsync(orderToCreate);

@@ -2,13 +2,13 @@
 
 namespace LinkDev.Talabat.Core.Domain.Entities.Orders
 {
-    public class OrderItem : BaseAuditableEntity<int>
-    {
-     
-        public required ProductItemOrder Product { get; set; }
+public class OrderItem : BaseAuditableEntity<int>
+{
+ 
 
-        public decimal Price { get; set; }
-        public int Quantity { get; set; }
+    public virtual required ProductItemOrder Product { get; set; }
+    public decimal Price { get; set; }
+    public int Quantity { get; set; }
+}
 
-    }
 }

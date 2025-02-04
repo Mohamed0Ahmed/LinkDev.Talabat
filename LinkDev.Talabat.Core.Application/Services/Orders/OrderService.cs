@@ -43,8 +43,7 @@ namespace LinkDev.Talabat.Core.Application.Services.Orders
                             Product = productItemOrder,
                             Price = product.Price,
                             Quantity = item.Quantity,
-                            CreatedBy = "system",
-                            LastModifiedBy = "System",
+                    
                         };
                          orderItems.Add(orderItem);
              
@@ -76,8 +75,7 @@ namespace LinkDev.Talabat.Core.Application.Services.Orders
                 SubTotal = subTotal,
                 DeliveryMethodId = order.DeliveryMethodId,
                 DeliveryMethod = deliveryMethod,
-                CreatedBy = "system",
-                LastModifiedBy = "System",
+        
 
             };
 

@@ -27,6 +27,30 @@ namespace LinkDev.Talabat.APIs.Controllers.Controllers.Orders
             return Ok(result);
         }
 
-       
+        [HttpGet] // GET: /api/orders
+        public async Task<ActionResult<IEnumerable<OrderToReturnDto>>> GetOrdersForUser()
+        {
+            var BuyerEmail = User.FindFirstValue(ClaimTypes.Email);
+            var result = await serviceManager.OrderService.GetOrderForUserAsync(BuyerEmail!);
+            return Ok(result);
+        }
+
+
+        [HttpGet("{id}")] // GET: /api/orders/id
+
+        public async Task<ActionResult<IEnumerable<OrderToReturnDto>>> GetOrdersById(int id)
+        {
+            var BuyerEmail = User.FindFirstValue(ClaimTypes.Email);
+            var result = await serviceManager.OrderService.GetOrderByIdAsync(BuyerEmail!, id);
+            return Ok(result);
+        }
+
+
+        [HttpGet("deliveryMethods")] // GET: /api/orders/deliveryMethods
+        public async Task<ActionResult<IEnumerable<DeliveryMethodDto>>> GetDeliveryMethod()
+        {
+            var result = await serviceManager.OrderService.GetDeliveryMethodAsync();
+            return Ok(result);
+        }
     }
 }

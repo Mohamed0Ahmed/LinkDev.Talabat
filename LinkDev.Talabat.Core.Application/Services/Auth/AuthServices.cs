@@ -12,7 +12,7 @@ using System.Text;
 
 namespace LinkDev.Talabat.Core.Application.Services.Auth
 {
-    public class AuthServices(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager ,IOptions<JwtSettings> jwtSettings) : IAuthServices
+    public class AuthServices(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IOptions<JwtSettings> jwtSettings) : IAuthServices
     {
         private readonly JwtSettings _jwtSettings = jwtSettings.Value;
 
@@ -112,14 +112,27 @@ namespace LinkDev.Talabat.Core.Application.Services.Auth
                 issuer: _jwtSettings.Issuer,
                 audience: _jwtSettings.Audience,
                 expires: DateTime.UtcNow.AddMinutes(_jwtSettings.DurationInMinutes),
-                claims:claims,
+                claims: claims,
                 signingCredentials: signingCredentials
-                
+
 
                 );
 
             return new JwtSecurityTokenHandler().WriteToken(tokenObj);
         }
 
+        public async Task<UserDto> GetCurrentUser(ClaimsPrincipal claimsPrincipal)
+        {
+            var email = claimsPrincipal.FindFirstValue(ClaimTypes.Email);
+            var user = await userManager.FindByEmailAsync(email!);
+
+            return new UserDto()
+            {
+                DisplayName = user!.DisplayName,
+                Email = user.Email!,
+                Id = user.Id,
+                Token = await GenerateTokenAsync(user),
+            };
+        }
     }
 }

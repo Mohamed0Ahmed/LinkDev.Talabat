@@ -4,6 +4,7 @@ using LinkDev.Talabat.Core.Application.Abstraction.DTOs.Common;
 using LinkDev.Talabat.Core.Application.Abstraction.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace LinkDev.Talabat.APIs.Controllers.Controllers.Account
 {
@@ -54,6 +55,11 @@ namespace LinkDev.Talabat.APIs.Controllers.Controllers.Account
         }
 
 
+        [HttpGet("emailexists")]  //GET   :   /api/account/emailexists
+        public async Task<ActionResult<bool>> CheckEmailExists(string email)
+        {
+            return Ok(await _serviceManager.AuthServices.EmailExists(email));
+        }
 
 
     }

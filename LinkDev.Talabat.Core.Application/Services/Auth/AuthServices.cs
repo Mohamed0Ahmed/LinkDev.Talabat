@@ -57,6 +57,7 @@ namespace LinkDev.Talabat.Core.Application.Services.Auth
 
         public async Task<UserDto> RegisterAsync(RegisterDto registerDto)
         {
+
             var user = new ApplicationUser
             {
                 DisplayName = registerDto.DisplayName,
@@ -177,9 +178,10 @@ namespace LinkDev.Talabat.Core.Application.Services.Auth
             return mapper.Map<AddressDto>(user.Address);
         }
 
-        public Task<bool> EmailExist(string email)
+        public async Task<bool> EmailExists(string email)
         {
-            throw new NotImplementedException();
+
+            return await userManager.FindByEmailAsync(email!) is not null;
         }
     }
 }

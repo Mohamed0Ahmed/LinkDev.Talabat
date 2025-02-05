@@ -7,6 +7,8 @@ using LinkDev.Talabat.Core.Domain.Entities.Baskets;
 using LinkDev.Talabat.Core.Domain.Entities.Orders;
 using LinkDev.Talabat.Core.Domain.Entities.Products;
 
+using userAddress =  LinkDev.Talabat.Core.Domain.Entities.Identities;
+
 namespace LinkDev.Talabat.Core.Application.Mapping
 {
     internal class MappingProfile : Profile
@@ -47,7 +49,11 @@ namespace LinkDev.Talabat.Core.Application.Mapping
 
             CreateMap<Address, AddressDto>().ReverseMap();
 
+            CreateMap<userAddress.Address, AddressDto>().ReverseMap();
+
             CreateMap<DeliveryMethod, DeliveryMethodDto>();
+     
+
         }
     }
 }

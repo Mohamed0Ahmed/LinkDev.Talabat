@@ -17,10 +17,10 @@ namespace LinkDev.Talabat.Core.Application
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
            
-            services.AddAutoMapper(typeof(MappingProfile));
 
 
        
+            services.AddAutoMapper(typeof(MappingProfile));
 
             services.AddScoped<IServiceManager, ServiceManager>();
             services.AddScoped<IBasketService, BasketService>();

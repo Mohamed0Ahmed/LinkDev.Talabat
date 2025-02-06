@@ -1,18 +1,11 @@
-﻿namespace LinkDev.Talabat.Core.Domain.Entities.Identities
+﻿namespace LinkDev.Talabat.Core.Application.Abstraction.DTOs.Common
 {
-    public class Address
+    public class AddressDto
     {
-        public int Id { get; set; }
-
         public required string FirstName { get; set; }
         public required string LastName { get; set; }
         public required string Street { get; set; }
         public required string City { get; set; }
         public required string Country { get; set; }
-
-
-        public required string UserId { get; set; }
-        public virtual required ApplicationUser User { get; set; }
-
     }
 }

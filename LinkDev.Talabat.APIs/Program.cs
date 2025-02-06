@@ -4,8 +4,10 @@ using LinkDev.Talabat.APIs.Middleware;
 using LinkDev.Talabat.APIs.Services;
 using LinkDev.Talabat.Application.Abstraction.Interfaces;
 using LinkDev.Talabat.Core.Application;
+using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
 using LinkDev.Talabat.Infrastructure;
 using LinkDev.Talabat.Infrastructure.Persistence;
+using LinkDev.Talabat.Infrastructure.Persistence.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LinkDev.Talabat.APIs
@@ -49,14 +51,18 @@ namespace LinkDev.Talabat.APIs
 
             webApplicationBuilder.Services.AddEndpointsApiExplorer().AddSwaggerGen();
 
-            webApplicationBuilder.Services.AddHttpContextAccessor().AddScoped<ILoggedInUserService, LoggedInUserService>();
+            webApplicationBuilder.Services.AddHttpContextAccessor();
+            webApplicationBuilder.Services.AddScoped<ILoggedInUserService, LoggedInUserService>();
+
+
 
             webApplicationBuilder.Services.AddApplicationServices();
+            webApplicationBuilder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             webApplicationBuilder.Services.AddPersistenceServices(webApplicationBuilder.Configuration);
             webApplicationBuilder.Services.AddInfrastructureServices(webApplicationBuilder.Configuration);
 
             webApplicationBuilder.Services.AddIdentityServices(webApplicationBuilder.Configuration);
-         
+
             #endregion
 
 

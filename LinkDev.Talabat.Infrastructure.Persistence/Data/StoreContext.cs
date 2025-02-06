@@ -1,18 +1,23 @@
-﻿using LinkDev.Talabat.Core.Domain.Entities.Products;
+﻿using LinkDev.Talabat.Core.Domain.Entities.Orders;
+using LinkDev.Talabat.Core.Domain.Entities.Products;
 using Microsoft.EntityFrameworkCore;
 
 namespace LinkDev.Talabat.Infrastructure.Persistence.Data
 {
-    public class StoreContext : DbContext
+    public class StoreContext: DbContext
     {
+        public  DbSet<Product> Products { get; set; }
+        public  DbSet<ProductBrand> Brands { get; set; }
+        public  DbSet<ProductCategory> Categories { get; set; }
+        public  DbSet<Order> Orders { get; set; }
+        public  DbSet<OrderItem> OrderItems { get; set; }
+        public  DbSet<DeliveryMethod> DeliveryMethods { get; set; }
+
         public StoreContext(DbContextOptions<StoreContext> options) : base(options)
         {
 
         }
 
-        public DbSet<Product> Products { get; set; }
-        public DbSet<ProductBrand> Brands { get; set; }
-        public DbSet<ProductCategory> Categories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

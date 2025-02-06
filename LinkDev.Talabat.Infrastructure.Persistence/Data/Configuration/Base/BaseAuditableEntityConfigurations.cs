@@ -1,6 +1,4 @@
 ﻿using LinkDev.Talabat.Core.Domain.Common;
-using LinkDev.Talabat.Infrastructure.Persistence.Data.Configuration.Base;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LinkDev.Talabat.Infrastructure.Persistence.Data.Configuration.Base

@@ -22,15 +22,16 @@ namespace LinkDev.Talabat.Infrastructure.Persistence
 
             #region Store Context
 
-            services.AddDbContext<StoreContext>((options) =>
+            services.AddDbContext<StoreContext>((serviceProvider, options) =>
             {
-                options.UseLazyLoadingProxies().UseSqlServer(configuration.GetConnectionString("StoreContext"));
+                options.UseLazyLoadingProxies().UseSqlServer(configuration.GetConnectionString("StoreContext"))
+                .AddInterceptors(serviceProvider.GetRequiredService<AuditInterceptor>());
             });
 
             services.AddScoped<IDataSeeder, DataSeeder>();
             services.AddScoped<IMigrationService, MigrationService>();
-            services.AddScoped<ISaveChangesInterceptor, CustomSaveChangesInterceptor>();
 
+            services.AddScoped(typeof(AuditInterceptor));
 
             #endregion
 
@@ -52,7 +53,7 @@ namespace LinkDev.Talabat.Infrastructure.Persistence
             services.AddIdentityCore<ApplicationUser>();
 
 
-            services.AddScoped<IUnitOfWork , UnitOfWork>();
+            
             return services;
         }
     }

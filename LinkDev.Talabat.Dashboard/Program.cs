@@ -4,6 +4,7 @@ using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
 using LinkDev.Talabat.Core.Domain.Entities.Identities;
 using LinkDev.Talabat.Dashboard.Models;
 using LinkDev.Talabat.Infrastructure.Persistence.Data;
+using LinkDev.Talabat.Infrastructure.Persistence.Data.Interceptors;
 using LinkDev.Talabat.Infrastructure.Persistence.Identities;
 using LinkDev.Talabat.Infrastructure.Persistence.Repositories;
 using Microsoft.AspNetCore.Identity;
@@ -26,13 +27,16 @@ namespace LinkDev.Talabat.Dashboard
             builder.Services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
             builder.Services.AddAutoMapper(typeof(MappingProfile));
             builder.Services.AddScoped<ILoggedInUserService, LoggedInUserService>();
+            builder.Services.AddHttpContextAccessor();
 
 
-            builder.Services.AddDbContext<StoreContext>((options) =>
+            builder.Services.AddDbContext<StoreContext>((serviceProvider, options) =>
             {
-                options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("StoreContext"));
+                options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("StoreContext"))
+                .AddInterceptors(serviceProvider.GetRequiredService<AuditInterceptor>());
             });
 
+            builder.Services.AddScoped(typeof(AuditInterceptor));
 
             builder.Services.AddDbContext<StoreIdentityDbContext>((options) =>
             {
@@ -88,6 +92,7 @@ namespace LinkDev.Talabat.Dashboard
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(

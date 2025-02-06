@@ -31,10 +31,10 @@ namespace LinkDev.Talabat.Dashboard.Controllers
             {
                 Id = 0,
                 Name = Name,
-                CreatedBy = _loggedUserService.UserId ?? "System",
-                LastModifiedBy = _loggedUserService.UserId ?? "System"
+                CreatedBy = _loggedUserService.UserId,
             };
 
+            Console.WriteLine("User Id == ", _loggedUserService.UserId ?? "Null");
             if (string.IsNullOrEmpty(productBrand.Name) || productBrand.Name.Length > 100)
             {
                 return Json(new { success = false, message = "Invalid data: Brand name is required and can't be longer than 100 characters." });

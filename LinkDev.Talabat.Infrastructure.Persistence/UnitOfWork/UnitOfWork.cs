@@ -2,6 +2,7 @@
 using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
 using LinkDev.Talabat.Infrastructure.Persistence.Data;
 using LinkDev.Talabat.Infrastructure.Persistence.GenericRepository;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Concurrent;
 
 namespace LinkDev.Talabat.Infrastructure.Persistence.Repositories
@@ -41,7 +42,19 @@ namespace LinkDev.Talabat.Infrastructure.Persistence.Repositories
 
 
 
-        public async Task<int> CompleteAsync() => await _dbContext.SaveChangesAsync();
+        public async Task<int> CompleteAsync()
+        {
+            try
+            {
+                return await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Database Save Error: {ex.InnerException?.Message ?? ex.Message}");
+                throw;
+            }
+        }
+
 
         public async ValueTask DisposeAsync() => await _dbContext.DisposeAsync();   
 

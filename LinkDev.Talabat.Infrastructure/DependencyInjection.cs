@@ -1,5 +1,7 @@
 ﻿using LinkDev.Talabat.Core.Domain.Contracts.Infrastructure;
-using LinkDev.Talabat.Infrastructure.Basket_Repository;
+using LinkDev.Talabat.Infrastructure.BasketRepo;
+using LinkDev.Talabat.Infrastructure.PaymentServices;
+using LinkDev.Talabat.Shared.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StackExchange.Redis;
@@ -18,7 +20,11 @@ namespace LinkDev.Talabat.Infrastructure
                 return connectionMultiplexer;
             });
 
+            services.Configure<RedisSettings>(configuration.GetSection("RedisSettings"));
+            services.Configure<StripeSettings>(configuration.GetSection("StripeSettings"));
+
             services.AddScoped(typeof(IBasketRepository), typeof(BasketRepository));
+            services.AddScoped<IPaymentService, PaymentService>();
             return services;
         }
     }

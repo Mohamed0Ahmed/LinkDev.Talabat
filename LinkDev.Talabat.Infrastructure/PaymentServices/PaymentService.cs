@@ -22,7 +22,7 @@ namespace LinkDev.Talabat.Infrastructure.PaymentServices
         private readonly RedisSettings _redisSettings = redisSettings.Value;
 
          
-        public async Task<CustomerBasket> CreateOrUpdatePaymentIntent(string basketId)
+        public async Task<CustomerBasketDto> CreateOrUpdatePaymentIntent(string basketId)
         {
             StripeConfiguration.ApiKey = _stripeSettings.SecretKey;
 
@@ -50,8 +50,6 @@ namespace LinkDev.Talabat.Infrastructure.PaymentServices
                         item.Price = product.Price;
                 }
             }
-
-
 
             PaymentIntent? paymentIntent;
             var paymentIntentService = new PaymentIntentService();
@@ -107,7 +105,7 @@ namespace LinkDev.Talabat.Infrastructure.PaymentServices
 
             await basketRepository.UpdateAsync(basket, TimeSpan.FromDays(_redisSettings.TimeToLiveInDays));
 
-            //return mapper.Map<CustomerBasketDto>(basket);
+            return mapper.Map<CustomerBasketDto>(basket);
 
             throw new NotImplementedException();
         }

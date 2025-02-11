@@ -4,9 +4,11 @@ namespace LinkDev.Talabat.Core.Application.Abstraction.DTOs.Basket
 {
     public class CustomerBasketDto
     {
-        [Required]
+        [Required(ErrorMessage = "The id field is required.")]
         public required string Id { get; set; }
-        public IEnumerable<BasketItemDto> Items  { get; set; } = [];
+
+        [Required]
+        public IEnumerable<BasketItemDto> Items { get; set; } = [];
 
         public string? PaymentIntentId { get; set; }
 

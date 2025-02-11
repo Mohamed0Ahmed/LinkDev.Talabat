@@ -17,6 +17,7 @@ namespace LinkDev.Talabat.Core.Domain.Specifications.Orders
             AddIncludes();
             AddOrderByDesc(order => order.OrderDate);
         }
+      
 
 
         private protected override void AddIncludes()
@@ -25,5 +26,6 @@ namespace LinkDev.Talabat.Core.Domain.Specifications.Orders
             Includes.Add(order => order.Items);
             Includes.Add(order => order.DeliveryMethod!);
         }
+
     }
 }

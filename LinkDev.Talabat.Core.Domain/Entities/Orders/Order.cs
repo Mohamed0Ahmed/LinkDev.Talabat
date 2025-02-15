@@ -14,7 +14,7 @@ namespace LinkDev.Talabat.Core.Domain.Entities.Orders
         public virtual DeliveryMethod? DeliveryMethod { get; set; }
         public virtual ICollection<OrderItem> Items { get; set; } = [];
         public decimal SubTotal { get; set; }
-
+        public decimal Total { get; set; }
 
         public decimal GetTotal() => SubTotal + DeliveryMethod!.Cost;
 

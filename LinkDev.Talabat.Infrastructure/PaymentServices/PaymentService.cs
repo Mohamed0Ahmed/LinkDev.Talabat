@@ -3,7 +3,6 @@ using LinkDev.Talabat.Core.Application.Abstraction.DTOs.Basket;
 using LinkDev.Talabat.Core.Application.Exceptions;
 using LinkDev.Talabat.Core.Domain.Contracts.Infrastructure;
 using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
-using LinkDev.Talabat.Core.Domain.Entities.Baskets;
 using LinkDev.Talabat.Core.Domain.Entities.Orders;
 using LinkDev.Talabat.Shared.Models;
 using Microsoft.Extensions.Options;
@@ -107,6 +106,13 @@ namespace LinkDev.Talabat.Infrastructure.PaymentServices
 
             return mapper.Map<CustomerBasketDto>(basket);
 
+            throw new NotImplementedException();
+        }
+
+
+
+        public Task<bool> UpdateOrderPaymentStatus(string requestBody, string signatureHeader)
+        {
             throw new NotImplementedException();
         }
     }

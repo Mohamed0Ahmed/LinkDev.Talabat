@@ -65,6 +65,9 @@ namespace LinkDev.Talabat.Core.Application.Services.Orders
 
             var deliveryMethod = await unitOfWork.GetRepository<DeliveryMethod, int>().GetAsync(order.DeliveryMethodId) ?? throw new BadRequestException("Invalid delivery method selected.");
 
+            // Calculate Total
+            var total = subTotal + deliveryMethod.Cost;
+
 
             // Check If No Duplicated OF Payment Intent Id
             var orderRepo = unitOfWork.GetRepository<Order, int>();
@@ -86,6 +89,7 @@ namespace LinkDev.Talabat.Core.Application.Services.Orders
                 BuyerEmail = buyerEmail,
                 Items = orderItems,
                 SubTotal = subTotal,
+                Total = total,
                 DeliveryMethodId = order.DeliveryMethodId,
                 DeliveryMethod = deliveryMethod,
                 PaymentIntentId = basket.PaymentIntentId!

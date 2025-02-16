@@ -1,5 +1,4 @@
 ﻿using LinkDev.Talabat.Core.Domain.Common;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LinkDev.Talabat.Core.Domain.Entities.Orders
 {

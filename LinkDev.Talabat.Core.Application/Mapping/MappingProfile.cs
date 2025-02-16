@@ -6,8 +6,8 @@ using LinkDev.Talabat.Core.Application.Abstraction.DTOs.Products;
 using LinkDev.Talabat.Core.Domain.Entities.Baskets;
 using LinkDev.Talabat.Core.Domain.Entities.Orders;
 using LinkDev.Talabat.Core.Domain.Entities.Products;
-
 using userAddress = LinkDev.Talabat.Core.Domain.Entities.Identities;
+
 
 namespace LinkDev.Talabat.Core.Application.Mapping
 {

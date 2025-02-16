@@ -88,8 +88,8 @@ namespace LinkDev.Talabat.Core.Application.Services.Orders
                 ShippingAddress = address,
                 BuyerEmail = buyerEmail,
                 Items = orderItems,
-                SubTotal = subTotal,
                 Total = total,
+                SubTotal = subTotal,
                 DeliveryMethodId = order.DeliveryMethodId,
                 DeliveryMethod = deliveryMethod,
                 PaymentIntentId = basket.PaymentIntentId!

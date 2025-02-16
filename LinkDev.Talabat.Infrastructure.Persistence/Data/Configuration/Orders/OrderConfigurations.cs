@@ -23,6 +23,7 @@ namespace LinkDev.Talabat.Infrastructure.Persistence.Data.Configuration.Orders
 
 
             builder.Property(order => order.SubTotal).HasColumnType("decimal(8,2)");
+            builder.Property(order => order.Total).HasColumnType("decimal(8,2)");
 
 
             builder.HasOne(order => order.DeliveryMethod)

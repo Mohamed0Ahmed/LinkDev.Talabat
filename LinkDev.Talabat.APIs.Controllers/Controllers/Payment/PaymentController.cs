@@ -9,7 +9,6 @@ namespace LinkDev.Talabat.APIs.Controllers.Controllers.Payment
 {
 
     [ApiController]
-    //[Route("api/[controller]")]
     public class PaymentController(IPaymentService paymentService) : BaseApiController
     {
 
@@ -21,17 +20,17 @@ namespace LinkDev.Talabat.APIs.Controllers.Controllers.Payment
             return Ok(result);
         }
 
-        //[HttpPost("webhook")]
-        //public async Task<IActionResult> HandleWebhook()
-        //{
-        //    var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
-        //    var sigHeader = Request.Headers["Stripe-Signature"];
-        //    await paymentService.UpdateOrderPaymentStatus(json, sigHeader!);
+        [HttpPost("webhook")]
+        public async Task<IActionResult> HandleWebhook()
+        {
+            var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
+            var sigHeader = Request.Headers["Stripe-Signature"];
+            await paymentService.UpdateOrderPaymentStatus(json, sigHeader!);
 
 
 
-        //    return Ok();
-        //}
+            return Ok();
+        }
     }
 }
 

@@ -61,7 +61,7 @@ namespace LinkDev.Talabat.Core.Application.Services.Orders
 
             // 3  Map Address
 
-            var address = mapper.Map<Address>(order.ShippingAddress);
+            var address = mapper.Map<Address>(order.ShipToAddress);
 
             var deliveryMethod = await unitOfWork.GetRepository<DeliveryMethod, int>().GetAsync(order.DeliveryMethodId) ?? throw new BadRequestException("Invalid delivery method selected.");
 

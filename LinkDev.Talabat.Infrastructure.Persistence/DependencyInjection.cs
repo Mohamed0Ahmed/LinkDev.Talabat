@@ -7,9 +7,7 @@ using LinkDev.Talabat.Infrastructure.Persistence.Data.Migrations.Services;
 using LinkDev.Talabat.Infrastructure.Persistence.Identities;
 using LinkDev.Talabat.Infrastructure.Persistence.Identities.DataSeeding.Services;
 using LinkDev.Talabat.Infrastructure.Persistence.Identities.Migrations.Services;
-using LinkDev.Talabat.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

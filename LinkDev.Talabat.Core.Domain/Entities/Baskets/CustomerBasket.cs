@@ -1,15 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using LinkDev.Talabat.Core.Domain.Common;
 
 namespace LinkDev.Talabat.Core.Domain.Entities.Baskets
 {
-    public class CustomerBasket
+    public class CustomerBasket : BaseEntity<string>
     {
-        public required string Id { get; set; }
-        public IEnumerable<BasketItem> Items { get; set; } = new List<BasketItem>();
 
+        public IEnumerable<BasketItem> Items { get; set; } = [];
+        public string? PaymentIntentId { get; set; }
+
+        public string? ClientSecret { get; set; }
+
+        public int? DeliveryMethodId { get; set; }
+
+        public decimal ShippingPrice { get; set; }
     }
 }

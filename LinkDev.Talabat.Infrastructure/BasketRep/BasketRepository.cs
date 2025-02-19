@@ -1,15 +1,9 @@
 ﻿using LinkDev.Talabat.Core.Domain.Contracts.Infrastructure;
 using LinkDev.Talabat.Core.Domain.Entities.Baskets;
 using StackExchange.Redis;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
-namespace LinkDev.Talabat.Infrastructure.Basket_Repository
+namespace LinkDev.Talabat.Infrastructure.BasketRepo
 {
     internal class BasketRepository : IBasketRepository
     {

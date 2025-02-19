@@ -11,7 +11,7 @@ namespace LinkDev.Talabat.APIs.Controllers.Controllers.Orders
     {
 
         [HttpPost] // Post  :   /api/orders
-        public async Task<ActionResult<OrderToReturnDto>> CreateOrder(OrderToCreateDto orderDto)
+        public async Task<ActionResult<OrderToReturnDto>> CreateOrder([FromBody]OrderToCreateDto orderDto)
         {
             if (!ModelState.IsValid)
             {

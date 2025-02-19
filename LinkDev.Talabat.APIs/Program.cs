@@ -27,25 +27,24 @@ namespace LinkDev.Talabat.APIs
             // Add services to the container.
 
             webApplicationBuilder.Services
-                .AddControllers()
-                .ConfigureApiBehaviorOptions(options =>
-            {
-                options.SuppressModelStateInvalidFilter = false;
-                options.InvalidModelStateResponseFactory = (actionContext) =>
-                {
-                    var errors = actionContext.ModelState.Where(p => p.Value!.Errors.Count > 0)
-                                                          .Select(p => new ApiValidationErrorResponse.ValidationError()
-                                                          {
-                                                              Field = p.Key,
-                                                              Errors = p.Value!.Errors.Select(e => e.ErrorMessage)
-                                                          });
+            .AddControllers()
+            .ConfigureApiBehaviorOptions(options =>
+       {
+           options.SuppressModelStateInvalidFilter = false;
+           options.InvalidModelStateResponseFactory = (actionContext) =>
+           {
+               var errors = actionContext.ModelState
+                                         .Where(p => p.Value!.Errors.Count > 0)
+                                         .SelectMany(p => p.Value!.Errors.Select(e => $"{p.Key}: {e.ErrorMessage}")) 
+                                         .ToList(); 
 
-                    return new BadRequestObjectResult(new ApiValidationErrorResponse()
-                    {
-                        Errors = (IEnumerable<string>)errors
-                    });
-                };
-            });
+               return new BadRequestObjectResult(new ApiValidationErrorResponse()
+               {
+                   Errors = errors
+               });
+           };
+       });
+
 
 
 
@@ -54,6 +53,15 @@ namespace LinkDev.Talabat.APIs
             webApplicationBuilder.Services.AddHttpContextAccessor();
             webApplicationBuilder.Services.AddScoped<ILoggedInUserService, LoggedInUserService>();
 
+            webApplicationBuilder.Services.AddCors(corsPolicy =>
+            {
+                corsPolicy.AddPolicy("TalabatPolicy", policyBuilder =>
+                {
+                    policyBuilder.WithOrigins("http://localhost:4200") 
+                                 .AllowAnyMethod()  
+                                 .AllowAnyHeader(); 
+                });
+            });
 
 
             webApplicationBuilder.Services.AddApplicationServices();
@@ -98,6 +106,8 @@ namespace LinkDev.Talabat.APIs
             app.UseStatusCodePagesWithReExecute("/Errors/{0}");
 
             app.UseStaticFiles();
+
+            app.UseCors("TalabatPolicy");
 
             app.UseAuthentication();
             app.UseAuthorization();

@@ -1,0 +1,126 @@
+using LinkDev.Talabat.APIs.Controllers.Errors;
+using LinkDev.Talabat.APIs.Extensions;
+using LinkDev.Talabat.APIs.Middleware;
+using LinkDev.Talabat.APIs.Services;
+using LinkDev.Talabat.Application.Abstraction.Interfaces;
+using LinkDev.Talabat.Core.Application;
+using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
+using LinkDev.Talabat.Infrastructure;
+using LinkDev.Talabat.Infrastructure.Persistence;
+using LinkDev.Talabat.Infrastructure.Persistence.Repositories;
+using Microsoft.AspNetCore.Mvc;
+
+namespace LinkDev.Talabat.APIs
+{
+    public class Program
+    {
+
+        // Entry Point
+        public static async Task Main(string[] args)
+        {
+            var webApplicationBuilder = WebApplication.CreateBuilder(args);
+
+
+            #region Configure Services
+
+
+            // Add services to the container.
+
+            webApplicationBuilder.Services
+            .AddControllers()
+            .ConfigureApiBehaviorOptions(options =>
+       {
+           options.SuppressModelStateInvalidFilter = false;
+           options.InvalidModelStateResponseFactory = (actionContext) =>
+           {
+               var errors = actionContext.ModelState
+                                         .Where(p => p.Value!.Errors.Count > 0)
+                                         .SelectMany(p => p.Value!.Errors.Select(e => $"{p.Key}: {e.ErrorMessage}")) 
+                                         .ToList(); 
+
+               return new BadRequestObjectResult(new ApiValidationErrorResponse()
+               {
+                   Errors = errors
+               });
+           };
+       });
+
+
+
+
+            webApplicationBuilder.Services.AddEndpointsApiExplorer().AddSwaggerGen();
+
+            webApplicationBuilder.Services.AddHttpContextAccessor();
+            webApplicationBuilder.Services.AddScoped<ILoggedInUserService, LoggedInUserService>();
+
+            webApplicationBuilder.Services.AddCors(corsPolicy =>
+            {
+                corsPolicy.AddPolicy("TalabatPolicy", policyBuilder =>
+                {
+                    policyBuilder.WithOrigins("http://localhost:4200") 
+                                 .AllowAnyMethod()  
+                                 .AllowAnyHeader(); 
+                });
+            });
+
+
+            webApplicationBuilder.Services.AddApplicationServices();
+            webApplicationBuilder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            webApplicationBuilder.Services.AddPersistenceServices(webApplicationBuilder.Configuration);
+            webApplicationBuilder.Services.AddInfrastructureServices(webApplicationBuilder.Configuration);
+
+            webApplicationBuilder.Services.AddIdentityServices(webApplicationBuilder.Configuration);
+
+            #endregion
+
+
+
+            var app = webApplicationBuilder.Build();
+
+
+            #region  Databases Initilaztion And Data Seeding
+
+            await app.InitializeDbAsync();
+
+
+
+            #endregion
+
+
+
+
+            #region Configure Kestrel Middleware
+
+
+            app.UseMiddleware<CustomExceptionHandlerMiddleware>();
+
+            // Configure the HTTP request pipeline.
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
+
+            app.UseHttpsRedirection();
+
+            app.UseStatusCodePagesWithReExecute("/Errors/{0}");
+
+            app.UseStaticFiles();
+
+            app.UseCors("TalabatPolicy");
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+
+            app.MapControllers();
+
+            #endregion
+
+
+
+
+            app.Run();
+        }
+    }
+}

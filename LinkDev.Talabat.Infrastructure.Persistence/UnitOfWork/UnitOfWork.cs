@@ -1,0 +1,63 @@
+﻿using LinkDev.Talabat.Core.Domain.Common;
+using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
+using LinkDev.Talabat.Infrastructure.Persistence.Data;
+using LinkDev.Talabat.Infrastructure.Persistence.GenericRepository;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Concurrent;
+
+namespace LinkDev.Talabat.Infrastructure.Persistence.Repositories
+{
+    public class UnitOfWork : IUnitOfWork
+    {
+
+
+        #region Services
+
+
+        private readonly StoreContext _dbContext;
+        private readonly ConcurrentDictionary<string, object> _repositories; 
+
+        public UnitOfWork(StoreContext dbContext)
+        {
+            _dbContext = dbContext;
+            _repositories = new ConcurrentDictionary<string, object>();
+        } 
+
+
+        #endregion
+
+
+
+
+
+        public IGenericRepository<TEntity, TKey> GetRepository<TEntity, TKey>()
+                                 where TEntity : BaseAuditableEntity<TKey>
+                                 where TKey : IEquatable<TKey>
+        {
+         
+
+            return (IGenericRepository<TEntity, TKey>) _repositories.GetOrAdd(typeof(TEntity).Name, new GenericRepository<TEntity , TKey>(_dbContext));
+
+        }
+
+
+
+        public async Task<int> CompleteAsync()
+        {
+            try
+            {
+                return await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Database Save Error: {ex.InnerException?.Message ?? ex.Message}");
+                throw;
+            }
+        }
+
+
+        public async ValueTask DisposeAsync() => await _dbContext.DisposeAsync();   
+
+       
+    }
+}

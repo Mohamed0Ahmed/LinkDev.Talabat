@@ -1,0 +1,31 @@
+[
+  {
+    "Id": 0,
+    "ShortName": "Ups1",
+    "Description": "Fatest Delivery",
+    "DeliveryTime": "1-2 Days",
+    "Cost": 10
+  },
+  {
+    "Id": 0,
+    "ShortName": "Ups2",
+    "Description": "Slow",
+    "DeliveryTime": "1-2 Days",
+    "Cost": 10
+  },
+  {
+    "Id": 0,
+    "ShortName": "Ups3",
+    "Description": "Fatest Delivery",
+    "DeliveryTime": "4 Days",
+    "Cost": 10
+  },
+  {
+    "Id": 0,
+    "ShortName": "Ups4",
+    "Description": "Fatest Delivery",
+    "DeliveryTime": "5 Days",
+    "Cost": 10
+  }
+
+]
